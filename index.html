@@ -99,6 +99,15 @@ dialog::backdrop{background:#2A211Ccc}
 .acts details[open] summary{background:var(--wash);border-color:var(--gold)}
 .acts details[open] summary:after{transform:rotate(-135deg);margin-top:4px}
 .det{flex-basis:100%;width:100%;border-top:1px solid var(--rule);margin-top:6px;padding-top:6px}
+.show.small{font-size:22px;padding:2px 0 8px}
+.dbtns{display:grid;gap:10px;margin-top:10px}
+.dbtns .btn-line{margin:0}
+#lock input{width:100%;font:600 18px var(--sans);padding:12px 14px;border:1.5px solid var(--rule);border-radius:10px;background:var(--paper);color:var(--ink)}
+#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;background:var(--ink);color:#FBF1DC;border-radius:999px;padding:10px 18px;font:700 15px var(--sans)}
+.det ul.tl li{grid-template-columns:1fr;gap:2px;padding:10px 0}
+.det ul.tl .t{font:800 11.5px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.12em;color:var(--goldink)}
+.resnum{font:700 22px var(--sans);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.inline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .foot{font:italic 500 16px/1.4 var(--serif);color:var(--mute);text-align:center;margin:22px 0 6px}
 </style>
 </head><body>
@@ -123,7 +132,11 @@ dialog::backdrop{background:#2A211Ccc}
 <div class="foot">Plano aprovado em 14 nov 2026. Só o hotel de Pequim está reservado. Horários e preços podem mudar.</div>
 </main>
 <nav class="tabs" id="tabs"></nav>
-<dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></dialog>
+<dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><div class="show small" id="dlg-addr" hidden></div>
+ <div class="dbtns"><button class="btn-line" id="dlg-c1" data-copy="">Copiar o nome</button><button class="btn-line" id="dlg-c2" data-copy="" hidden>Copiar o endereço</button><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></div></dialog>
+<dialog id="lock"><div class="eyebrow">Número da reserva</div><p>Digite a senha da família. Só é preciso uma vez neste celular.</p><input id="lock-pw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Senha"><p class="w" id="lock-msg" hidden>Senha incorreta.</p>
+ <div class="dbtns"><button class="btn" id="lock-ok">Abrir</button><button class="btn-line" onclick="document.getElementById('lock').close()">Cancelar</button></div></dialog>
+<div id="toast" role="status" hidden></div>
 <script>
 'use strict';
 // ---------- data ----------
@@ -240,13 +253,15 @@ const DAYS = [
   ['Chegada desejada','Domingo, 18 de abril: Bárbara em São Paulo por volta das 17:40; Pai e Mãe no Brasil no mesmo dia, horário a definir.']]}
 ];
 const NIGHTS = [
- ['Pequim','5 noites','4 a 8 abr','Shichahai Shadow Art Courtyard','什刹海皮影文化酒店','Nome completo: Beijing Shichahai Shadow Art Performance Courtyard. Casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Teatro de sombras no pátio às terças, quintas e sábados, às 20:00.','ok','Entrada dom 4, 14:00 · Saída sex 9, 12:00'],
+ ['Pequim','5 noites','4 a 8 abr','Shichahai Shadow Art Courtyard','什刹海皮影文化主题酒店','Nome completo: Beijing Shichahai Shadow Art Performance Courtyard. Casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Teatro de sombras no pátio às terças, quintas e sábados, às 20:00.','ok','Entrada dom 4, 14:00 · Saída sex 9, 12:00'],
  ["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店','Dentro da muralha, perto da Torre do Sino e do Bairro Muçulmano. Tudo plano.','','Entrada sex 9 · Saída dom 11'],
  ['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland','','Na rua de pedestres Nanjing East. O Bund fica a 1 km plano, ou 5 minutos de táxi. Peça na recepção o cartão do hotel com o endereço em chinês.','','Entrada dom 11 · Saída qua 14'],
  ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.','','Entrada qua 14 · Saída qui 15'],
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
-const BOOKED = {'Pequim':[['Endereço','No. 24 Songshu Street, Xicheng District, Pequim'],['Telefone','+86 10 8328 7847'],['Entrada','Domingo, 4 de abril, a partir das 14:00'],['Saída','Sexta, 9 de abril, até as 12:00'],['Quartos','2 quartos Deluxe (casal ou duas camas), sem refeições'],['Total','CNY 5.544 pelos dois quartos, 5 noites, com impostos e serviço'],['Pago','Nada ainda. O hotel pede o pagamento antes da chegada, por Alipay ou WeChat Pay, e vai mandar as instruções por e-mail'],['Cancelamento','Grátis até 31 de março de 2027, 23:59. De 1º de abril: CNY 554,40 por quarto. De 5 de abril: valor total'],['Extras','Café da manhã CNY 68 e jantar CNY 48 por pessoa, por noite, opcionais'],['Pedidos','Quartos próximos: anotado. Tipo de cama: o hotel não garante antes, tenta na chegada'],['Reserva','Feita pela Bárbara no Booking em 14 nov 2026. O número da reserva está no e-mail dela']]};
+const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
+const SEC = 'IbHjZkP4llf28oI3ofcPLd0c4u+1yj7CPIg+xk8SUogzpI6hTe09Mh6FruIRc7lv9nAgdoaaUmEgyalNhJGOQbtaDXw=';
+const BOOKED = {'Pequim':[['Endereço','No. 24 Songshu Street, Xicheng District, Pequim'],['Telefone','+86 10 8328 7847'],['Entrada','Domingo, 4 de abril, a partir das 14:00'],['Saída','Sexta, 9 de abril, até as 12:00'],['Quartos','2 quartos Deluxe (casal ou duas camas), sem refeições'],['Total','CNY 5.544 pelos dois quartos, 5 noites, com impostos e serviço'],['Pago','Nada ainda. O hotel pede o pagamento antes da chegada, por Alipay ou WeChat Pay, e vai mandar as instruções por e-mail'],['Cancelamento','Grátis até 31 de março de 2027, 23:59. De 1º de abril: CNY 554,40 por quarto. De 5 de abril: valor total'],['Extras','Café da manhã CNY 68 e jantar CNY 48 por pessoa, por noite, opcionais'],['Pedidos','Quartos próximos: anotado. Tipo de cama: o hotel não garante antes, tenta na chegada'],['Reserva','Feita pela Bárbara no Booking em 14 nov 2026']]};
 const ARRIVE = [['Brasil → Pequim','Bárbara','Dom 4 abr','por volta das 15:25'],['Istambul → Pequim','Pai e Mãe','Dom 4 abr','à tarde'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → São Paulo','Bárbara','Dom 18 abr','por volta das 17:40'],['Hong Kong → Brasil','Pai e Mãe','Dom 18 abr','a definir']];
 const LEGS = [['Sex 9 abr',"Pequim → Xi'an",'Trem G365','09:55 → 14:05','Sair do hotel 08:15'],['Qui 15 abr','Shenzhen → Hong Kong','Trem G5647','14:56 → 15:10','Sair do hotel 14:00']];
 const FOOD = [
@@ -266,7 +281,7 @@ const PHRASES = [
 ];
 // Cards to show a taxi driver. zh from the hotels' own listings and the sights' Chinese names.
 const TAXI = [
- ['Pequim',[['Hotel (Shichahai Shadow Art)','什刹海皮影文化酒店'],['Grande Muralha de Mutianyu','慕田峪长城'],['Cidade Proibida, portão leste','故宫 东华门'],['Zoológico de Pequim, portão sul','北京动物园 南门'],['Palácio de Verão, Portão do Palácio Novo','颐和园 新建宫门'],['Estação Pequim Oeste','北京西站']]],
+ ['Pequim',[['Hotel (Shichahai Shadow Art)','什刹海皮影文化主题酒店'],['Grande Muralha de Mutianyu','慕田峪长城'],['Cidade Proibida, portão leste','故宫 东华门'],['Zoológico de Pequim, portão sul','北京动物园 南门'],['Palácio de Verão, Portão do Palácio Novo','颐和园 新建宫门'],['Estação Pequim Oeste','北京西站']]],
  ["Xi'an",[['Hotel (Novotel Torre do Sino)','西安钟楼诺富特酒店'],['Muralha da cidade, Portão Sul','西安城墙 永宁门'],['Exército de Terracota','秦始皇兵马俑博物馆'],['Aeroporto de Xi\'an','西安咸阳国际机场']]],
  ['Xangai',[['Torre de Xangai','上海中心大厦'],['Jardim Yu','豫园'],['Circo de Xangai (show ERA)','上海马戏城'],['Aeroporto de Hongqiao','上海虹桥机场']]],
  ['Shenzhen',[['Hotel (Wyndham Grand)','深圳温德姆至尊酒店'],['Mercado de eletrônicos Huaqiangbei','华强北'],['Estação Futian','福田站']]],
@@ -298,7 +313,24 @@ function dayCard(d, nowHm){
 }
 function checklist(group, items){ const st = store.get('ck', {}); return items.map(([id,txt,sub]) => { const k = group+':'+id, on = !!st[k]; return `<label class="ck ${on?'done':''}"><input type="checkbox" data-k="${k}" ${on?'checked':''}><span>${esc(txt)}${sub?`<small>${esc(sub)}</small>`:''}</span></label>`; }).join(''); }
 function say(text, lang){ try{ if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .8; const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace('_','-').toLowerCase().startsWith(lang.toLowerCase())); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
-function showCard(title, zh, pt){ $('#dlg-t').textContent = title; $('#dlg-zh').textContent = zh; $('#dlg-pt').textContent = pt; const d = $('#dlg'); if (d.showModal) d.showModal(); else d.setAttribute('open',''); }
+function openDlg(d){ if (d.showModal) d.showModal(); else d.setAttribute('open',''); }
+function showCard(title, zh, pt, addr){ $('#dlg-t').textContent = title; $('#dlg-zh').textContent = zh; $('#dlg-pt').textContent = pt; $('#dlg-c1').dataset.copy = zh;
+  const a = $('#dlg-addr'), c2 = $('#dlg-c2'); a.hidden = c2.hidden = !addr; a.textContent = addr || ''; c2.dataset.copy = addr || ''; openDlg($('#dlg')); }
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 1800); }
+async function copyText(text){ let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {
+    try { const host = document.querySelector('dialog[open]') || document.body, ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly',''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; host.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length); ok = document.execCommand('copy'); ta.remove(); } catch (e2) {} }
+  toast(ok ? 'Copiado' : 'Não deu para copiar. Toque e segure no texto.'); }
+// private data (booking numbers) is encrypted in the page; it opens with the family password, once per phone
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlock(pw){ if (!SEC || SEC.startsWith('__')) return null;
+  try { const raw = b64(SEC), salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
+    const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw.trim()), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:250000, hash:'SHA-256'}, km, {name:'AES-GCM', length:256}, false, ['decrypt']);
+    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct))); } catch (e) { return null; } }
+function resHtml(city){ const sec = store.get('sec', null);
+  if (sec && sec[city]) return `<div class="inline"><span class="resnum">${esc(sec[city])}</span><button class="chip" data-copy="${esc(sec[city])}">Copiar</button></div>`;
+  return `<button class="chip" data-unlock="1">Mostrar o número (pede a senha)</button>`; }
 const tbl = (head, rows) => `<div class="x"><table><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
 // ---------- views ----------
 function vHoje(){
@@ -338,7 +370,7 @@ function vHoteis(){
   NIGHTS.map(r=>`<div class="card hotel"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>
    <div class="tags">${r[6]==='ok'?'<span class="tag easy">reservado</span>':'<span class="tag tent">ainda não reservado</span>'}</div>
    <p class="line">${r[7].split(' · ').map(x=>`<span>${esc(x)}</span>`).join(' · ')}</p>
-   <div class="acts">${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Nome em chinês</button>`:''}<details><summary class="chip">Ver detalhes</summary><div class="det"><p>${esc(r[5])}</p>${BOOKED[r[0]]?`<ul class="tl">${BOOKED[r[0]].map(x=>`<li><span class="t">${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul>`:''}</div></details></div></div>`).join('') +
+   <div class="acts">${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-addr="${esc(ADDR_ZH[r[0]]||'')}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Nome em chinês</button>`:''}<details><summary class="chip">Ver detalhes</summary><div class="det"><p>${esc(r[5])}</p>${BOOKED[r[0]]?`<ul class="tl"><li><span class="t">Número da reserva</span><span>${resHtml(r[0])}</span></li>${ADDR_ZH[r[0]]?`<li><span class="t">Endereço em chinês</span><span class="inline"><span class="zh" style="font-size:20px">${esc(ADDR_ZH[r[0]])}</span><button class="chip" data-copy="${esc(ADDR_ZH[r[0]])}">Copiar</button></span></li>`:''}${BOOKED[r[0]].map(x=>`<li><span class="t">${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul>`:''}</div></details></div></div>`).join('') +
   `<p class="note">Na chegada a cada hotel: levar os passaportes e pedir um cartão com o endereço em chinês.</p>`;
 }
 function vComer(){
@@ -369,7 +401,10 @@ $('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><svg aria-hidde
 document.addEventListener('click', e => {
   const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
   const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
-  const sh = e.target.closest('[data-show]'); if (sh) return showCard(sh.dataset.t, sh.dataset.show, sh.dataset.pt);
+  const cp = e.target.closest('[data-copy]'); if (cp) return copyText(cp.dataset.copy);
+  if (e.target.closest('[data-unlock]')) { $('#lock-msg').hidden = true; $('#lock-pw').value = ''; return openDlg($('#lock')); }
+  if (e.target.closest('#lock-ok')) { return unlock($('#lock-pw').value).then(o => { if (!o) { $('#lock-msg').hidden = false; return; } store.set('sec', o); $('#lock').close(); const open = [...document.querySelectorAll('#v-hoteis details')].map(d => d.open); vHoteis(); document.querySelectorAll('#v-hoteis details').forEach((d,i) => { d.open = open[i]; }); toast('Aberto neste celular'); }); }
+  const sh = e.target.closest('[data-show]'); if (sh) return showCard(sh.dataset.t, sh.dataset.show, sh.dataset.pt, sh.dataset.addr);
   const c = e.target.closest('[data-city]'); if (c) { store.set('city', c.dataset.city); return vDias(); }
   const dy = e.target.closest('[data-day]'); if (dy) { store.set('city','all'); go('dias'); const el = document.querySelector('#v-dias [id="day-'+dy.dataset.day+'"]'); if (el) el.scrollIntoView(); return; }
   const pr = e.target.closest('[data-prat]'); if (pr) { store.set('prat', pr.dataset.prat); vPratico(); window.scrollTo(0,0); }
