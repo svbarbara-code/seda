@@ -244,13 +244,13 @@ function inTZ(d){ const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA',{
 const store = { get(k,d){ try{ const v = localStorage.getItem('seda:'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem('seda:'+k, JSON.stringify(v)); }catch(e){} } };
 const LABEL = {easy:'dia leve', heavy:'dia mais puxado', move:'dia de viagem'};
 const fmtDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${d} de ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][m-1]}`; };
-const TENT = /Trem G\d+/;
-function evText(t){ return TENT.test(t) ? `${esc(t)} <span class="tag tent">provisório</span>` : esc(t); }
+const TENT = /Trem G\d+|[Vv]oos?\b|Chegada desejada/;
+function evText(t, label){ return TENT.test((label||'')+' '+t) ? `${esc(t)} <span class="tag tent">provisório</span>` : esc(t); }
 function dayCard(d, nowHm){
   let cur = -1; if (nowHm) d.ev.forEach((e,i) => { if (/^\d\d:\d\d$/.test(e[0]) && e[0] <= nowHm) cur = i; });
   return `<div class="card" id="day-${d.iso}"><div class="eyebrow">${d.wd} · ${fmtDate(d.iso)} · ${esc(CITY[d.c])}</div><div class="big">${esc(d.t)}</div>
   <div class="tags">${d.k.map(k=>`<span class="tag ${k}">${LABEL[k]}</span>`).join('')}${d.km?`<span class="tag">a pé: ${esc(d.km)}</span>`:''}</div>
-  <ul class="tl">${d.ev.map((e,i)=>`<li class="${i===cur?'now':''}"><span class="t">${esc(e[0])}</span><span>${evText(e[1])}</span></li>`).join('')}</ul>${d.n?`<div class="note">${esc(d.n)}</div>`:''}</div>`;
+  <ul class="tl">${d.ev.map((e,i)=>`<li class="${i===cur?'now':''}"><span class="t">${esc(e[0])}</span><span>${evText(e[1], e[0])}</span></li>`).join('')}</ul>${d.n?`<div class="note">${esc(d.n)}</div>`:''}</div>`;
 }
 function checklist(group, items){ const st = store.get('ck', {}); return items.map(([id,txt,sub]) => { const k = group+':'+id, on = !!st[k]; return `<label class="ck ${on?'done':''}"><input type="checkbox" data-k="${k}" ${on?'checked':''}><span>${esc(txt)}${sub?`<small>${esc(sub)}</small>`:''}</span></label>`; }).join(''); }
 function say(text, lang){ try{ if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .8; const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace('_','-').toLowerCase().startsWith(lang.toLowerCase())); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
@@ -282,12 +282,12 @@ function vHoje(){
 function vDias(){
   const cities = [['all','Todos'],['bj','Pequim'],['xa',"Xi'an"],['sh','Xangai'],['sz','Shenzhen'],['hk','Hong Kong']], sel = store.get('city','all');
   const list = DAYS.filter(d => sel==='all' || d.c===sel);
-  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens marcados como <b>provisório</b> ainda não estão reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map(d=>dayCard(d)).join('');
+  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens e voos marcados como <b>provisório</b> ainda não estão comprados nem reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map(d=>dayCard(d)).join('');
 }
 function vTransporte(){
   $('#v-transporte').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p><div class="card"><div class="eyebrow">Quem voa com quem</div><p>Bárbara vai e volta em voos separados dos do Pai e da Mãe. Pai e Mãe vão antes e passam alguns dias em Istambul. Os três se encontram em Pequim no domingo, 4 de abril, e ficam juntos na China e em Hong Kong.</p></div>
-  <div class="card"><div class="eyebrow">Chegada desejada</div>${tbl(['Trecho','Quem','Dia','Hora'], ARRIVE)}<p class="note">Os números dos voos e os horários de saída entram aqui quando as passagens forem compradas.</p></div>
-  <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th><th>Obs.</th><th>Situação</th></tr>${LEGS.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}<td><span class="tag tent">provisório</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
+  <div class="card"><div class="eyebrow">Chegada desejada</div><p><span class="tag tent">provisório</span> Os voos ainda não foram comprados. Dias e horas são o que queremos, e podem mudar.</p><div class="x"><table><tr><th>Trecho</th><th>Quem</th><th>Dia</th><th>Hora</th></tr>${ARRIVE.map(r=>`<tr><td>${esc(r[0])}<br><span class="tag tent">provisório</span></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join('')}</table></div><p class="note">Os números dos voos e os horários de saída entram aqui quando as passagens forem compradas.</p></div>
+  <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th></tr>${LEGS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}<br><span class="tag tent">provisório</span></td><td>${esc(r[2])}</td><td>${esc(r[3])}<br><span class="mute">${esc(r[4])}</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
 }
 function vHoteis(){
   $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Nenhum hotel está reservado ainda: são as escolhas do plano.</p>` +
