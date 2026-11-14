@@ -108,7 +108,7 @@ dialog::backdrop{background:#2A211Ccc}
 <section class="view" id="v-hoteis"></section>
 <section class="view" id="v-comer"></section>
 <section class="view" id="v-pratico"></section>
-<div class="foot">Plano aprovado em 14 nov 2026. Nada está reservado ainda. Horários e preços podem mudar.</div>
+<div class="foot">Plano aprovado em 14 nov 2026. Só o hotel de Pequim está reservado. Horários e preços podem mudar.</div>
 </main>
 <nav class="tabs" id="tabs"></nav>
 <dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></dialog>
@@ -228,7 +228,7 @@ const DAYS = [
   ['Chegada desejada','Domingo, 18 de abril: Bárbara em São Paulo por volta das 17:40; Pai e Mãe no Brasil no mesmo dia, horário a definir.']]}
 ];
 const NIGHTS = [
- ['Pequim','5 noites','4 a 8 abr','Beijing Shichahai Shadow Art Performance Courtyard','什刹海皮影文化酒店','Hotel em casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Tem teatro de sombras no pátio às terças, quintas e sábados, às 20:00. Quartos de 15 m². A confirmar com o hotel: quarto no térreo e táxi até a porta.'],
+ ['Pequim','5 noites','4 a 8 abr','Beijing Shichahai Shadow Art Performance Courtyard','什刹海皮影文化酒店','Hotel em casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Dois quartos Deluxe. Entrada no domingo, 4 de abril, a partir das 14:00; saída na sexta, 9, até as 12:00. Teatro de sombras no pátio às terças, quintas e sábados, às 20:00. Café da manhã e jantar são opcionais, pagos à parte. O hotel pede o pagamento antes da chegada, por Alipay ou WeChat Pay. A pedir ao hotel: camas separadas e quarto no térreo para Pai e Mãe.','ok'],
  ["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店','Dentro da muralha, perto da Torre do Sino e do Bairro Muçulmano. Tudo plano.'],
  ['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland','','Na rua de pedestres Nanjing East. O Bund fica a 1 km plano, ou 5 minutos de táxi.'],
  ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.'],
@@ -321,8 +321,8 @@ function vTransporte(){
   <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th></tr>${LEGS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}<br><span class="tag tent">provisório</span></td><td>${esc(r[2])}</td><td>${esc(r[3])}<br><span class="mute">${esc(r[4])}</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
 }
 function vHoteis(){
-  $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Nenhum hotel está reservado ainda: são as escolhas do plano.</p>` +
-  NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div><p>${esc(r[5])}</p><div class="tags"><span class="tag tent">ainda não reservado</span></div>${r[4]?`<p><button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button></p>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') +
+  $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. O hotel de Pequim já está reservado. Os outros são as escolhas do plano, ainda sem reserva.</p>` +
+  NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div><p>${esc(r[5])}</p><div class="tags">${r[6]==='ok'?'<span class="tag easy">reservado</span>':'<span class="tag tent">ainda não reservado</span>'}</div>${r[4]?`<p><button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button></p>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') +
   `<div class="card"><div class="eyebrow">Na chegada a cada hotel</div><p>Levar os passaportes: o hotel registra cada hóspede. Pedir um cartão com o endereço em chinês e guardar na carteira.</p></div>`;
 }
 function vComer(){
