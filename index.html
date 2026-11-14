@@ -91,13 +91,13 @@ const CITY = {bj:'Pequim', xa:"Xi'an", sh:'Xangai', sz:'Shenzhen', hk:'Hong Kong
 // k: easy | heavy | move
 const DAYS = [
  {iso:'2027-04-02', wd:'Sex', c:'air', t:'Saída do Brasil', k:['move'], ev:[
-  ['Noite','Ida para o aeroporto (voos ainda não comprados). Bárbara sai de São Paulo; Pai e Mãe saem do Rio.'],
+  ['Noite','Bárbara vai para o aeroporto em São Paulo (voo ainda não comprado). Pai e Mãe viajam separados dela e saem antes, com alguns dias em Istambul.'],
   ['Antes de sair','Passaportes, certificado de febre amarela, vistos, Alipay funcionando, eSIM instalado nos três celulares.']]},
  {iso:'2027-04-03', wd:'Sáb', c:'air', t:'Voando: Brasil → China', k:['move'], ev:[
-  ['Voos','Ainda não comprados. Bárbara sai de São Paulo; Pai e Mãe saem do Rio. A ideia é os três chegarem juntos.'],
-  ['Chegada desejada','Pequim, domingo, 4 de abril, por volta das 15:25.']]},
+  ['Voos','Ainda não comprados. Bárbara voa separada do Pai e da Mãe; os três se encontram em Pequim.'],
+  ['Chegada desejada','Pequim, domingo, 4 de abril, à tarde: Bárbara por volta das 15:25; Pai e Mãe vindos de Istambul.']]},
  {iso:'2027-04-04', wd:'Dom', c:'bj', t:'Chegada a Pequim', k:['easy'], km:'0,5 km', ev:[
-  ['15:25','Chegada desejada a Pequim (voo ainda não comprado). Carro até o hotel.'],
+  ['15:25','Chegada desejada a Pequim, em voos separados (ainda não comprados). Encontro no aeroporto ou no hotel.'],
   ['17:30','Hotel em Wangfujing.'],
   ['18:30','Jantar no hotel ou ao lado. Dormir cedo. Hoje não tem passeio.']], n:'Feriado de Qingming (3 a 5 de abril).'},
  {iso:'2027-04-05', wd:'Seg', c:'bj', t:'Hutongs de riquixá (só de manhã)', k:['easy'], km:'cerca de 1 km', ev:[
@@ -191,10 +191,10 @@ const DAYS = [
   ['13:45','Opcional: loja Yue Hwa, para seda, bordados e chá.'],
   ['15:00','Hotel. Descanso e malas.'],
   ['17:30','Jantar leve perto do hotel.'],
-  ['Noite','Ida para o aeroporto. Voo de volta ainda não comprado.']]},
+  ['Noite','Ida para o aeroporto. Voos de volta separados, ainda não comprados.']]},
  {iso:'2027-04-18', wd:'Dom', c:'home', t:'Volta para casa', k:['move'], ev:[
-  ['Voos','Ainda não comprados. Os três saem juntos de Hong Kong.'],
-  ['Chegada desejada','Domingo, 18 de abril: Pai e Mãe no Rio por volta das 16:05; Bárbara em São Paulo por volta das 17:40.']]}
+  ['Voos','Ainda não comprados. Bárbara volta em um voo; Pai e Mãe voltam em outro.'],
+  ['Chegada desejada','Domingo, 18 de abril: Bárbara em São Paulo por volta das 17:40; Pai e Mãe no Brasil no mesmo dia, horário a definir.']]}
 ];
 const NIGHTS = [
  ['Pequim','5 noites','4 a 8 abr','Sunworld Beijing Wangfujing','王府井天伦松鹤大饭店','Em Wangfujing, com comida e lojas na porta. A Cidade Proibida fica a 5 minutos de táxi.'],
@@ -203,7 +203,7 @@ const NIGHTS = [
  ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.'],
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.']
 ];
-const ARRIVE = [['Brasil → Pequim','os três','Dom 4 abr','por volta das 15:25'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → Rio','Pai e Mãe','Dom 18 abr','por volta das 16:05'],['Hong Kong → São Paulo','Bárbara','Dom 18 abr','por volta das 17:40']];
+const ARRIVE = [['Brasil → Pequim','Bárbara','Dom 4 abr','por volta das 15:25'],['Istambul → Pequim','Pai e Mãe','Dom 4 abr','à tarde'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → São Paulo','Bárbara','Dom 18 abr','por volta das 17:40'],['Hong Kong → Brasil','Pai e Mãe','Dom 18 abr','a definir']];
 const LEGS = [['Sex 9 abr',"Pequim → Xi'an",'Trem G365','09:55 → 14:05','Sair do hotel 08:15'],['Qui 15 abr','Shenzhen → Hong Kong','Trem G5647','14:56 → 15:10','Sair do hotel 14:00']];
 const FOOD = [
  ['Pequim',[['Seg 5','Almoço','Macarrão puxado à mão, perto do hotel'],['Ter 6','Almoço','Yisonglou, ao pé da Muralha'],['Qua 7 · 12:00','Especial','Pato de Pequim no Dadong (mesa a reservar)'],['Qui 8','No barco','Lanche reforçado; almoço leve às 14:30; jantar de despedida 18:30']]],
@@ -268,12 +268,12 @@ function vHoje(){
     h += `</div>` + dayCard(d, here.hm);
     if (next) h += `<h2>Amanhã</h2>` + dayCard(next);
   } else if (here.iso < DAYS[0].iso) {
-    const days = Math.ceil((Date.parse(DAYS[0].iso+'T00:00:00+08:00') - n.getTime()) / 864e5);
-    h += `<div class="card hero"><div class="eyebrow">Contagem regressiva</div><div class="count">${days}</div><p>${days===1?'dia':'dias'} até a saída do Brasil, na noite de sexta, 2 de abril de 2027.</p></div>`;
-    h += `<div class="card"><div class="eyebrow">A viagem</div><div class="big">Pequim → Xi'an → Xangai → Shenzhen → Hong Kong</div><p class="mute">13 noites, 5 hotéis. Bárbara, Pai e Mãe, os três juntos do começo ao fim.</p>${tbl(['Cidade','Noites','Datas'], NIGHTS.map(r=>[r[0],r[1],r[2]]))}</div>`;
+    const days = Math.ceil((Date.parse('2027-04-04T00:00:00+08:00') - n.getTime()) / 864e5);
+    h += `<div class="card hero"><div class="eyebrow">Contagem regressiva</div><div class="count">${days}</div><p>${days===1?'dia':'dias'} até o encontro em Pequim, no domingo, 4 de abril de 2027.</p></div>`;
+    h += `<div class="card"><div class="eyebrow">A viagem</div><div class="big">Pequim → Xi'an → Xangai → Shenzhen → Hong Kong</div><p class="mute">13 noites, 5 hotéis. Bárbara, Pai e Mãe juntos na China e em Hong Kong. Os voos de ida e de volta são separados.</p>${tbl(['Cidade','Noites','Datas'], NIGHTS.map(r=>[r[0],r[1],r[2]]))}</div>`;
     const st = store.get('ck', {}), nextTodo = TODO.flatMap(g => g[1].map(i => ['todo:'+i[0], i[1], g[0]])).filter(x => !st[x[0]]).slice(0,3);
     if (nextTodo.length) h += `<div class="card"><div class="eyebrow">Próximos passos</div><ul class="tl">${nextTodo.map(x=>`<li><span class="t">${esc(x[2])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul><p class="note">A lista completa está em Prático.</p></div>`;
-    h += `<h2>Primeiro dia</h2>` + dayCard(DAYS[2]);
+    h += `<h2>Primeiro dia juntos</h2>` + dayCard(DAYS[2]);
   } else {
     h += `<div class="card hero"><div class="eyebrow">Viagem concluída</div><div class="big">Bem-vindos de volta</div><p>Os dias continuam aqui, na aba Dias, para lembrar.</p></div>`;
   }
@@ -285,7 +285,7 @@ function vDias(){
   $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens marcados como <b>provisório</b> ainda não estão reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map(d=>dayCard(d)).join('');
 }
 function vTransporte(){
-  $('#v-transporte').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p>
+  $('#v-transporte').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p><div class="card"><div class="eyebrow">Quem voa com quem</div><p>Bárbara vai e volta em voos separados dos do Pai e da Mãe. Pai e Mãe vão antes e passam alguns dias em Istambul. Os três se encontram em Pequim no domingo, 4 de abril, e ficam juntos na China e em Hong Kong.</p></div>
   <div class="card"><div class="eyebrow">Chegada desejada</div>${tbl(['Trecho','Quem','Dia','Hora'], ARRIVE)}<p class="note">Os números dos voos e os horários de saída entram aqui quando as passagens forem compradas.</p></div>
   <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th><th>Obs.</th><th>Situação</th></tr>${LEGS.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}<td><span class="tag tent">provisório</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
 }
