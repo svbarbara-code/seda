@@ -87,6 +87,18 @@ nav.tabs button.on{color:var(--red)}
 dialog{border:1.5px solid var(--gold);border-radius:14px;padding:20px;max-width:92vw;width:420px;background:var(--card);color:var(--ink)}
 dialog::backdrop{background:#2A211Ccc}
 .btn{border:0;border-radius:999px;background:var(--red);color:#FBF1DC;font:700 16.5px var(--sans);padding:13px 16px;min-height:48px;width:100%}
+.hotel .big{margin-bottom:2px}
+.hotel .line{margin:8px 0 12px;font-weight:600;font-size:16px}
+.hotel .line span{white-space:nowrap}
+.acts .chip{padding:9px 13px;font-size:15px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.acts details{display:contents}
+.acts summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.acts summary::-webkit-details-marker{display:none}
+.acts summary:after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:-4px 0 0 2px}
+.acts details[open] summary{background:var(--wash);border-color:var(--gold)}
+.acts details[open] summary:after{transform:rotate(-135deg);margin-top:4px}
+.det{flex-basis:100%;width:100%;border-top:1px solid var(--rule);margin-top:6px;padding-top:6px}
 .foot{font:italic 500 16px/1.4 var(--serif);color:var(--mute);text-align:center;margin:22px 0 6px}
 </style>
 </head><body>
@@ -228,11 +240,11 @@ const DAYS = [
   ['Chegada desejada','Domingo, 18 de abril: Bárbara em São Paulo por volta das 17:40; Pai e Mãe no Brasil no mesmo dia, horário a definir.']]}
 ];
 const NIGHTS = [
- ['Pequim','5 noites','4 a 8 abr','Beijing Shichahai Shadow Art Performance Courtyard','什刹海皮影文化酒店','Hotel em casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Teatro de sombras no pátio às terças, quintas e sábados, às 20:00.','ok'],
- ["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店','Dentro da muralha, perto da Torre do Sino e do Bairro Muçulmano. Tudo plano.'],
- ['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland','','Na rua de pedestres Nanjing East. O Bund fica a 1 km plano, ou 5 minutos de táxi.'],
- ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.'],
- ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.']
+ ['Pequim','5 noites','4 a 8 abr','Shichahai Shadow Art Courtyard','什刹海皮影文化酒店','Nome completo: Beijing Shichahai Shadow Art Performance Courtyard. Casa de pátio tradicional, num hutong ao lado dos lagos de Shichahai. Indicação do irmão da Bárbara. Teatro de sombras no pátio às terças, quintas e sábados, às 20:00.','ok','Entrada dom 4, 14:00 · Saída sex 9, 12:00'],
+ ["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店','Dentro da muralha, perto da Torre do Sino e do Bairro Muçulmano. Tudo plano.','','Entrada sex 9 · Saída dom 11'],
+ ['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland','','Na rua de pedestres Nanjing East. O Bund fica a 1 km plano, ou 5 minutos de táxi. Peça na recepção o cartão do hotel com o endereço em chinês.','','Entrada dom 11 · Saída qua 14'],
+ ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.','','Entrada qua 14 · Saída qui 15'],
+ ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const BOOKED = {'Pequim':[['Endereço','No. 24 Songshu Street, Xicheng District, Pequim'],['Telefone','+86 10 8328 7847'],['Entrada','Domingo, 4 de abril, a partir das 14:00'],['Saída','Sexta, 9 de abril, até as 12:00'],['Quartos','2 quartos Deluxe (casal ou duas camas), sem refeições'],['Total','CNY 5.544 pelos dois quartos, 5 noites, com impostos e serviço'],['Pago','Nada ainda. O hotel pede o pagamento antes da chegada, por Alipay ou WeChat Pay, e vai mandar as instruções por e-mail'],['Cancelamento','Grátis até 31 de março de 2027, 23:59. De 1º de abril: CNY 554,40 por quarto. De 5 de abril: valor total'],['Extras','Café da manhã CNY 68 e jantar CNY 48 por pessoa, por noite, opcionais'],['Pedidos','Quartos próximos: anotado. Tipo de cama: o hotel não garante antes, tenta na chegada'],['Reserva','Feita pela Bárbara no Booking em 14 nov 2026. O número da reserva está no e-mail dela']]};
 const ARRIVE = [['Brasil → Pequim','Bárbara','Dom 4 abr','por volta das 15:25'],['Istambul → Pequim','Pai e Mãe','Dom 4 abr','à tarde'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → São Paulo','Bárbara','Dom 18 abr','por volta das 17:40'],['Hong Kong → Brasil','Pai e Mãe','Dom 18 abr','a definir']];
@@ -322,9 +334,12 @@ function vTransporte(){
   <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th></tr>${LEGS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}<br><span class="tag tent">provisório</span></td><td>${esc(r[2])}</td><td>${esc(r[3])}<br><span class="mute">${esc(r[4])}</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
 }
 function vHoteis(){
-  $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. O hotel de Pequim já está reservado. Os outros são as escolhas do plano, ainda sem reserva.</p>` +
-  NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div><p>${esc(r[5])}</p><div class="tags">${r[6]==='ok'?'<span class="tag easy">reservado</span>':'<span class="tag tent">ainda não reservado</span>'}</div>${BOOKED[r[0]]?`<ul class="tl">${BOOKED[r[0]].map(x=>`<li><span class="t">${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul>`:''}${r[4]?`<p><button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button></p>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') +
-  `<div class="card"><div class="eyebrow">Na chegada a cada hotel</div><p>Levar os passaportes: o hotel registra cada hóspede. Pedir um cartão com o endereço em chinês e guardar na carteira.</p></div>`;
+  $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Toque em "Ver detalhes" para abrir o resto.</p>` +
+  NIGHTS.map(r=>`<div class="card hotel"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>
+   <div class="tags">${r[6]==='ok'?'<span class="tag easy">reservado</span>':'<span class="tag tent">ainda não reservado</span>'}</div>
+   <p class="line">${r[7].split(' · ').map(x=>`<span>${esc(x)}</span>`).join(' · ')}</p>
+   <div class="acts">${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Nome em chinês</button>`:''}<details><summary class="chip">Ver detalhes</summary><div class="det"><p>${esc(r[5])}</p>${BOOKED[r[0]]?`<ul class="tl">${BOOKED[r[0]].map(x=>`<li><span class="t">${esc(x[0])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul>`:''}</div></details></div></div>`).join('') +
+  `<p class="note">Na chegada a cada hotel: levar os passaportes e pedir um cartão com o endereço em chinês.</p>`;
 }
 function vComer(){
   $('#v-comer').innerHTML = `<h2>Onde comer</h2><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
