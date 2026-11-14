@@ -74,9 +74,9 @@ dialog::backdrop{background:#000a}
 <main>
 <section class="view on" id="v-hoje"></section>
 <section class="view" id="v-dias"></section>
-<section class="view" id="v-viagem"></section>
+<section class="view" id="v-transporte"></section>
+<section class="view" id="v-hoteis"></section>
 <section class="view" id="v-comer"></section>
-<section class="view" id="v-frases"></section>
 <section class="view" id="v-pratico"></section>
 <div class="foot">Plano aprovado em 14 nov 2026. Nada está reservado ainda. Horários e preços podem mudar.</div>
 </main>
@@ -196,7 +196,13 @@ const DAYS = [
   ['Voos','Ainda não comprados. Os três saem juntos de Hong Kong.'],
   ['Chegada desejada','Domingo, 18 de abril: Pai e Mãe no Rio por volta das 16:05; Bárbara em São Paulo por volta das 17:40.']]}
 ];
-const NIGHTS = [['Pequim','5 noites','4 a 8 abr','Sunworld Beijing Wangfujing','王府井天伦松鹤大饭店'],["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店'],['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland, Nanjing East Road',''],['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen (Futian)','深圳温德姆至尊酒店'],['Hong Kong','2 noites','15 e 16 abr','The Royal Garden (Tsim Sha Tsui East)','帝苑酒店']];
+const NIGHTS = [
+ ['Pequim','5 noites','4 a 8 abr','Sunworld Beijing Wangfujing','王府井天伦松鹤大饭店','Em Wangfujing, com comida e lojas na porta. A Cidade Proibida fica a 5 minutos de táxi.'],
+ ["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店','Dentro da muralha, perto da Torre do Sino e do Bairro Muçulmano. Tudo plano.'],
+ ['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland','','Na rua de pedestres Nanjing East. O Bund fica a 1 km plano, ou 5 minutos de táxi.'],
+ ['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen','深圳温德姆至尊酒店','Em Futian, região plana, perto da estação do trem para Hong Kong.'],
+ ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.']
+];
 const ARRIVE = [['Brasil → Pequim','os três','Dom 4 abr','por volta das 15:25'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → Rio','Pai e Mãe','Dom 18 abr','por volta das 16:05'],['Hong Kong → São Paulo','Bárbara','Dom 18 abr','por volta das 17:40']];
 const LEGS = [['Sex 9 abr',"Pequim → Xi'an",'Trem G365','09:55 → 14:05','Sair do hotel 08:15'],['Qui 15 abr','Shenzhen → Hong Kong','Trem G5647','14:56 → 15:10','Sair do hotel 14:00']];
 const FOOD = [
@@ -223,7 +229,7 @@ const TAXI = [
  ['Hong Kong',[['Hotel (The Royal Garden)','帝苑酒店'],['O Pico','太平山頂'],['Museu do Palácio de Hong Kong','香港故宮文化博物館'],['Balsa Star Ferry, Tsim Sha Tsui','尖沙咀天星碼頭'],['Aeroporto de Hong Kong','香港國際機場']]]
 ];
 const TODO = [
- ['Agora',[['voos','Comprar as passagens internacionais','Bárbara compra. Depois, os voos aparecem na aba Viagem.'],['suzhou','Enviar a mensagem ao instituto de bordado de Suzhou','']]],
+ ['Agora',[['voos','Comprar as passagens internacionais','Bárbara compra. Depois, os voos aparecem na aba Transporte.'],['suzhou','Enviar a mensagem ao instituto de bordado de Suzhou','']]],
  ['Janeiro',[['dimsum','1º jan: reservar o dim sum da Mãe (Lai Ching Heen, sáb 17 abr, 12:00)','Confirmar em dezembro se as reservas de abril abrem mesmo no dia 1º.'],['consulado','Início de jan: ligar para o consulado no Rio','Perguntar se precisa agendar e quantos dias entre entregar e buscar.'],['seguro','Escolher o seguro viagem',''],['visto','15 jan: decisão do visto','Hoje a China exige visto em abril de 2027. Se a isenção não for renovada: visto de turista, R$ 475 cada. Prazo seguro: até 22 fev.'],['voosint','Reler os preços dos dois voos dentro da China','']]],
  ['Março',[['era','Ingressos do show de acrobatas ERA (ter 13 abr)',''],['cha','Cerimônia do chá (seg 12 abr), 2 a 3 semanas antes',''],['mesas','Mesas: Above & Beyond (sex 16) e pato no Dadong (qua 7)',''],['trem1','Por volta de 25 mar: trem G365 Pequim → Xi\'an, 1ª classe','Esgota rápido. Se não houver 1ª classe: classe executiva.'],['muralha','Muralha de Mutianyu: entrada, ônibus e teleférico','Entre 15 e 30 dias antes.'],['proibida','Qua 31 mar, 09:00 (horário de Brasília): Cidade Proibida','Com os três passaportes, horário da manhã. Esgota.'],['trem2','A partir de 31 mar: trem G5647 Shenzhen → Hong Kong',''],['terracota','Antes de viajar: pré-reserva do Exército de Terracota no Trip.com','']]]
 ];
@@ -278,44 +284,51 @@ function vDias(){
   const list = DAYS.filter(d => sel==='all' || d.c===sel);
   $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens marcados como <b>provisório</b> ainda não estão reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map(d=>dayCard(d)).join('');
 }
-function vViagem(){
-  $('#v-viagem').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p>
+function vTransporte(){
+  $('#v-transporte').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p>
   <div class="card"><div class="eyebrow">Chegada desejada</div>${tbl(['Trecho','Quem','Dia','Hora'], ARRIVE)}<p class="note">Os números dos voos e os horários de saída entram aqui quando as passagens forem compradas.</p></div>
-  <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th><th>Obs.</th><th>Situação</th></tr>${LEGS.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}<td><span class="tag tent">provisório</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>
-  <h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Ainda não reservados.</p>` + NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') + `<p class="note">No último dia em Hong Kong fica só o quarto do Pai e da Mãe, até a noite.</p>`;
+  <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th><th>Obs.</th><th>Situação</th></tr>${LEGS.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}<td><span class="tag tent">provisório</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
+}
+function vHoteis(){
+  $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Nenhum hotel está reservado ainda: são as escolhas do plano.</p>` +
+  NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div><p>${esc(r[5])}</p><div class="tags"><span class="tag tent">ainda não reservado</span></div>${r[4]?`<p><button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button></p>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') +
+  `<div class="card"><div class="eyebrow">Na chegada a cada hotel</div><p>Levar os passaportes: o hotel registra cada hóspede. Pedir um cartão com o endereço em chinês e guardar na carteira.</p></div>`;
 }
 function vComer(){
   $('#v-comer').innerHTML = `<h2>Onde comer</h2><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
   FOOD.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><ul class="tl">${rows.map(r=>`<li><span class="t">${esc(r[0])}</span><span>${r[1]==='Especial'?'<b>':''}${esc(r[2])}${r[1]==='Especial'?'</b>':''}</span></li>`).join('')}</ul></div>`).join('') +
   `<h2>Pratos para pedir</h2><div class="card">${DISHES.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="zh-CN" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`;
 }
-function vFrases(){
-  $('#v-frases').innerHTML = `<h2>Frases</h2><p class="mute">Toque no alto-falante para ouvir, ou mostre a tela para a pessoa.</p>` +
+function frasesHtml(){
+  return `<p class="mute">Toque no alto-falante para ouvir, ou mostre a tela para a pessoa.</p>` +
   PHRASES.map(([t,lang,rows])=>`<div class="card"><div class="eyebrow">${esc(t)}</div>${rows.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="${lang}" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`).join('') +
   `<h2>Para mostrar ao motorista</h2><p class="mute">Toque em um lugar para abrir o nome bem grande.</p>` +
   TAXI.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><div class="tags">${rows.map(r=>`<button class="chip" data-show="${esc(r[1])}" data-pt="${esc(r[0])}" data-t="Mostrar ao motorista">${esc(r[0])}</button>`).join('')}</div></div>`).join('');
 }
 function vPratico(){
-  $('#v-pratico').innerHTML = `<h2>O que falta fazer</h2>` + TODO.map(([g,items])=>`<div class="card"><div class="eyebrow">${esc(g)}</div>${checklist('todo', items)}</div>`).join('') +
-  `<h2>Na mala</h2><div class="card">${checklist('pack', PACK.map(p=>[p[0],p[1],'']))}</div>
-  <h2>Entrada na China e em Hong Kong</h2><div class="card"><p><b>China continental:</b> a isenção de visto para brasileiros vale só até 31 de dezembro de 2026. Para abril de 2027, o plano é tirar o visto de turista, a não ser que a isenção seja renovada. Decisão em 15 de janeiro.</p><p><b>Hong Kong:</b> brasileiros entram sem visto por até 90 dias.</p><p class="note">Shenzhen vem antes de Hong Kong, então é uma entrada só na China continental.</p></div>
+  const subs = [['fazer','A fazer'],['frases','Frases'],['info','Informações']], sel = store.get('prat','fazer');
+  const fazer = () => `<h2>O que falta fazer</h2>` + TODO.map(([g,items])=>`<div class="card"><div class="eyebrow">${esc(g)}</div>${checklist('todo', items)}</div>`).join('') +
+  `<h2>Na mala</h2><div class="card">${checklist('pack', PACK.map(p=>[p[0],p[1],'']))}</div>`;
+  const info = () => `  <h2>Entrada na China e em Hong Kong</h2><div class="card"><p><b>China continental:</b> a isenção de visto para brasileiros vale só até 31 de dezembro de 2026. Para abril de 2027, o plano é tirar o visto de turista, a não ser que a isenção seja renovada. Decisão em 15 de janeiro.</p><p><b>Hong Kong:</b> brasileiros entram sem visto por até 90 dias.</p><p class="note">Shenzhen vem antes de Hong Kong, então é uma entrada só na China continental.</p></div>
   <h2>Dinheiro e internet</h2><div class="card"><p><b>Pagamentos:</b> na China quase tudo é pelo Alipay, com QR code. Dinheiro e cartão são pouco usados. Em Hong Kong: dólar de Hong Kong, cartão e o cartão Octopus.</p><p><b>Internet:</b> Google, WhatsApp e Instagram são bloqueados nas redes chinesas. O eSIM de viagem resolve isso. Cada um terá o seu.</p><p><b>Tomadas:</b> levar adaptador universal.</p></div>
   <h2>Clima em abril</h2><div class="card">${tbl(['Cidade','Datas','Máx. / mín.','Chuva'], WX)}</div>
-  <h2>Se alguém se perder</h2><div class="card"><p>Ficar onde está e ligar ou mandar mensagem. Mostrar o cartão do hotel a um motorista de táxi: os nomes em chinês estão na aba Frases.</p><p class="note">Emergência na China: polícia 110, ambulância 120. Em Hong Kong: 999.</p></div>`;
+  <h2>Se alguém se perder</h2><div class="card"><p>Ficar onde está e ligar ou mandar mensagem. Mostrar o cartão do hotel a um motorista de táxi: os nomes em chinês estão aqui em Prático, em Frases, e na aba Hotéis.</p><p class="note">Emergência na China: polícia 110, ambulância 120. Em Hong Kong: 999.</p></div>`;
+  $('#v-pratico').innerHTML = `<div class="chips">${subs.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-prat="${c[0]}">${c[1]}</button>`).join('')}</div>` + (sel==='frases' ? frasesHtml() : sel==='info' ? info() : fazer());
 }
 // ---------- shell ----------
-const TABS = [['hoje','Hoje','☀️',vHoje],['dias','Dias','🗓️',vDias],['viagem','Viagem','✈️',vViagem],['comer','Comer','🥢',vComer],['frases','Frases','💬',vFrases],['pratico','Prático','🎒',vPratico]];
+const TABS = [['hoje','Hoje','☀️',vHoje],['dias','Dias','🗓️',vDias],['transporte','Transporte','🚆',vTransporte],['hoteis','Hotéis','🏨',vHoteis],['comer','Comer','🥢',vComer],['pratico','Prático','🎒',vPratico]];
 function go(id){ const t = TABS.find(x => x[0]===id) || TABS[0]; t[3](); document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-'+t[0])); document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t[0])); if (location.hash !== '#'+t[0]) history.replaceState(null,'','#'+t[0]); window.scrollTo(0,0); }
 $('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><i>${t[2]}</i>${t[1]}</button>`).join('');
 document.addEventListener('click', e => {
   const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
   const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
   const sh = e.target.closest('[data-show]'); if (sh) return showCard(sh.dataset.t, sh.dataset.show, sh.dataset.pt);
-  const c = e.target.closest('[data-city]'); if (c) { store.set('city', c.dataset.city); vDias(); }
+  const c = e.target.closest('[data-city]'); if (c) { store.set('city', c.dataset.city); return vDias(); }
+  const pr = e.target.closest('[data-prat]'); if (pr) { store.set('prat', pr.dataset.prat); vPratico(); window.scrollTo(0,0); }
 });
 document.addEventListener('change', e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; const st = store.get('ck', {}); st[k] = e.target.checked; store.set('ck', st); e.target.closest('label').classList.toggle('done', e.target.checked); });
 if ('speechSynthesis' in window) speechSynthesis.getVoices();
-go((location.hash || '#hoje').slice(1));
+go(({viagem:'transporte',frases:'pratico'})[(location.hash||'').slice(1)] || (location.hash || '#hoje').slice(1));
 setInterval(() => { if ($('#v-hoje').classList.contains('on')) vHoje(); }, 60000);
 if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
