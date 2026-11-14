@@ -1,6 +1,6 @@
 // Seda offline cache. The page is network-first (updates show on the next open with signal); icons and Google Fonts are cache-first.
 // The weather API passes through (the page keeps its own last copy).
-const CACHE = 'seda-v6';
+const CACHE = 'seda-v7';
 const CORE = ['./', 'manifest.webmanifest', 'icon-192.png', 'apple-touch-icon.png', 'favicon-32.png', 'art-muralha.webp', 'art-pequim.webp', 'art-xian.webp', 'art-xangai.webp', 'art-shenzhen.webp', 'art-hongkong.webp', 'art-comer.webp', 'art-trem.webp', 'art-cha.webp', 'art-panda.webp', 'tab-sun.webp', 'tab-cal.webp', 'tab-train.webp', 'tab-bed.webp', 'tab-bowl.webp', 'tab-bag.webp'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
