@@ -112,8 +112,8 @@ dialog::backdrop{background:#2A211Ccc}
 .sum{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;padding:4px 0 4px}
 .sum>div:first-child span:last-child{font-size:15.5px}
 .sum .tot{text-align:right;flex:none}
-.sum .tot b{display:block;font:700 29px/1 var(--serif);color:var(--red);margin-bottom:3px}
-.sum .brl{display:block;font:700 16px/1.3 var(--sans);margin-bottom:6px}
+.sum .tot b{display:block;font:800 22px/1.15 var(--sans);font-variant-numeric:tabular-nums lining-nums;color:var(--ink)}
+.sum .brl{display:block;font:600 15px/1.3 var(--sans);font-variant-numeric:tabular-nums lining-nums;color:var(--mute);margin:2px 0 8px}
 .fine{font-size:13.5px;color:var(--mute);margin:8px 0 0}
 ol.steps{list-style:none;border-top:1px solid var(--rule);margin:12px 0 4px;padding-top:14px !important;padding:0 0 0 22px;position:relative}
 ol.steps:before{content:"";position:absolute;left:5px;top:22px;bottom:14px;width:2px;background:var(--gold);opacity:.6}
@@ -153,7 +153,6 @@ ol.steps li>span:last-child{font-size:14.5px;color:var(--mute)}
 <section class="view" id="v-hoteis"></section>
 <section class="view" id="v-comer"></section>
 <section class="view" id="v-pratico"></section>
-<div class="foot">Plano aprovado em 14 nov 2026. Só o hotel de Pequim está reservado. Horários e preços podem mudar.</div>
 </main>
 <nav class="tabs" id="tabs"></nav>
 <dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><div class="show small" id="dlg-addr" hidden></div>
@@ -284,10 +283,10 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'rZkZeMIVysN/ElTuPV+jNzyvkBhFNNhkZMvFxFC3EfrycK8LkZFtIqBaat0SyT94+cyYzAmZPH2S71lN4edpvM9PACU=';
+const SEC = 'eO7W6qRkgSqOdUwF/WwQ6mXxKEdzxja+rG+81K0ncCDL9uLyqGanVr/+0vSVTC86fcHyGJaIYYnV/TOOb6xEHuhUIG0=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
-  rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'cerca de R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
+  rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
   steps:[['Até 31 mar','Cancelamento grátis','Depois: CNY 554,40 por quarto. De 5 abr: valor total.'],['Antes de chegar','Pagar por Alipay ou WeChat Pay','O hotel manda as instruções por e-mail.']],
   extras:[['Café da manhã','CNY 68'],['Jantar','CNY 48']], extrasNote:'por pessoa, por noite, opcionais',
   reqs:[['Quartos próximos','anotado'],['Tipo de cama','o hotel tenta na chegada']],
