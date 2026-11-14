@@ -136,6 +136,7 @@ ol.steps li>span:last-child{font-size:14.5px;color:var(--mute)}
 .cityban{position:relative;margin:22px 0 -4px;border-radius:12px;overflow:hidden;border:1px solid var(--rule);background:#FBEEDC}
 .cityban img{display:block;width:100%;height:auto;aspect-ratio:900/605}
 .cityban div{position:absolute;left:16px;top:14px;font:700 32px/1 var(--serif);color:var(--ink)}
+.cityban small{display:block;margin-top:7px;font:700 13px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--goldink)}
 .cityban em{font:900 17px var(--han);color:var(--goldink);font-style:normal;margin-left:8px}
 .card .ban{display:block;width:calc(100% + 36px);max-width:none;height:176px;object-fit:cover;object-position:80% 60%;margin:-16px -18px 14px;border-radius:11px 11px 0 0;border-bottom:1px solid var(--rule)}
 .spot{float:right;width:92px;height:92px;margin:-8px -8px 2px 8px}
@@ -294,7 +295,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'ML1pFe9ksXBtq/FI/V4TGLAO2NfcoGrIRkcQMGjvkX3hD80iH2SQNNM9VAU6UYEJJvz8mt5Bc1M83gp8zMucgPrHbn8=';
+const SEC = 'qn4tjRbfFNazwfBxYweb4D4IbyDjHYduoYPc32eJWdriq1RJKWz/Mk8ebc58UlsAopMxK/vFJ+oP/17Sn3UkPjd3xds=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -401,7 +402,7 @@ function vHoje(){
 function vDias(){
   const cities = [['all','Todos'],['bj','Pequim'],['xa',"Xi'an"],['sh','Xangai'],['sz','Shenzhen'],['hk','Hong Kong']], sel = store.get('city','all');
   const list = DAYS.filter(d => sel==='all' || d.c===sel);
-  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens e voos marcados como <b>provisório</b> ainda não estão comprados nem reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map((d,i)=>((ART[d.c] && (i===0 || list[i-1].c!==d.c)) ? `<div class="cityban">${img(ART[d.c],'')}<div>${esc(CITY[d.c])}<em>${HAN[CITY[d.c]]||''}</em></div></div>` : '') + dayCard(d)).join('');
+  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens e voos marcados como <b>provisório</b> ainda não estão comprados nem reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map((d,i)=>((ART[d.c] && (i===0 || list[i-1].c!==d.c)) ? `<div class="cityban">${img(ART[d.c],'')}<div>${esc(CITY[d.c])}<em>${HAN[CITY[d.c]]||''}</em>${(n=>n?`<small>${esc(n[2])} · ${esc(n[1])}</small>`:'')(NIGHTS.find(r=>r[0]===CITY[d.c]))}</div></div>` : '') + dayCard(d)).join('');
 }
 function vTransporte(){
   $('#v-transporte').innerHTML = `<div class="hrow"><h2>Voos</h2>${img('trem','hspot')}</div><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p><div class="card"><div class="eyebrow">Quem voa com quem</div><p>Bárbara vai e volta em voos separados dos do Pai e da Mãe. Pai e Mãe vão antes e passam alguns dias em Istambul. Os três se encontram em Pequim no domingo, 4 de abril, e ficam juntos na China e em Hong Kong.</p></div>
