@@ -14,7 +14,7 @@
 :root{color-scheme:light;--paper:#FBF6EC;--card:#FFFDF7;--ink:#2A211C;--mute:#7A6A55;--red:#A61F1B;--gold:#C2A14F;--goldink:#8F722A;--rule:#E3D6BC;--wash:#F6EBCF;--jade:#2F6F5E;--serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--han:'Noto Serif SC','Songti SC','PingFang SC',serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
-body{padding-bottom:calc(78px + env(safe-area-inset-bottom));background-image:radial-gradient(#0000000a 1px,transparent 1px);background-size:5px 5px}
+body{padding-bottom:calc(86px + env(safe-area-inset-bottom));background-image:radial-gradient(#0000000a 1px,transparent 1px);background-size:5px 5px}
 .top{max-width:640px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top)) 20px 4px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .top h1{margin:0;font:700 44px/1 var(--serif);letter-spacing:.01em}
 .top p{margin:4px 0 0;font:italic 500 19px/1.2 var(--serif);color:var(--mute)}
@@ -81,9 +81,11 @@ label.ck small{display:block;color:var(--mute);font-size:14.5px}
 .say:active{background:var(--red);color:#FBF1DC}
 .show{font:600 34px/1.3 "PingFang SC","Noto Sans SC","Songti SC",sans-serif;text-align:center;padding:10px 0}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 2px env(safe-area-inset-bottom)}
-nav.tabs button{border:0;background:none;color:#8C7C68;font:700 11px var(--sans);padding:6px 0 8px;min-height:58px;display:flex;flex-direction:column;align-items:center;gap:4px}
+nav.tabs button{border:0;background:none;color:#8C7C68;font:700 11px var(--sans);padding:6px 0 8px;min-height:64px;display:flex;flex-direction:column;align-items:center;gap:3px}
 nav.tabs svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs img{width:32px;height:32px;opacity:.5;transition:opacity .15s}
 nav.tabs button.on{color:var(--red)}
+nav.tabs button.on img{opacity:1}
 dialog{border:1.5px solid var(--gold);border-radius:14px;padding:20px;max-width:92vw;width:420px;background:var(--card);color:var(--ink)}
 dialog::backdrop{background:#2A211Ccc}
 .btn{border:0;border-radius:999px;background:var(--red);color:#FBF1DC;font:700 16.5px var(--sans);padding:13px 16px;min-height:48px;width:100%}
@@ -294,7 +296,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'pwBucEporq2cxJux0/TyYlNEycJz9s99NIixVWpQUVrW/1kfRUTerFuxP12BRRqdDDG1pWT7epoNz0nLIyA9dyxB3vQ=';
+const SEC = 'uGYLeSyqYlai0TWLm9S3lVj5Fy6+xCHBgUgSj0B0xBMceOiWT2/WpeE6jQw241QGNl8uVRS6l7HOZ49LFpyVzaMEuvE=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -447,7 +449,7 @@ function vPratico(){
 // ---------- shell ----------
 const TABS = [['hoje','Hoje','sun',vHoje],['dias','Dias','cal',vDias],['transporte','Transporte','train',vTransporte],['hoteis','Hotéis','bed',vHoteis],['comer','Comer','bowl',vComer],['pratico','Prático','bag',vPratico]];
 function go(id){ const t = TABS.find(x => x[0]===id) || TABS[0]; t[3](); document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-'+t[0])); document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t[0])); if (location.hash !== '#'+t[0]) history.replaceState(null,'','#'+t[0]); window.scrollTo(0,0); }
-$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><svg aria-hidden="true"><use href="#i-${t[2]}"/></svg>${t[1]}</button>`).join('');
+$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><img src="tab-${t[2]}.webp" alt="" width="32" height="32">${t[1]}</button>`).join('');
 document.addEventListener('click', e => {
   const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
   const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
