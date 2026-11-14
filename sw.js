@@ -1,7 +1,7 @@
 // Seda offline cache. The page is network-first (updates show on the next open with signal); icons and Google Fonts are cache-first.
 // The weather API passes through (the page keeps its own last copy).
-const CACHE = 'seda-v7';
-const CORE = ['./', 'manifest.webmanifest', 'icon-192.png', 'apple-touch-icon.png', 'favicon-32.png', 'art-muralha.webp', 'art-pequim.webp', 'art-xian.webp', 'art-xangai.webp', 'art-shenzhen.webp', 'art-hongkong.webp', 'art-comer.webp', 'art-trem.webp', 'art-cha.webp', 'art-panda.webp', 'tab-sun.webp', 'tab-cal.webp', 'tab-train.webp', 'tab-bed.webp', 'tab-bowl.webp', 'tab-bag.webp'];
+const CACHE = 'seda-v8';
+const CORE = ['./', 'manifest.webmanifest', 'icon-192.png', 'apple-touch-icon.png', 'favicon-32.png', 'art-muralha.webp?v=3', 'art-pequim.webp?v=3', 'art-xian.webp?v=3', 'art-xangai.webp?v=3', 'art-shenzhen.webp?v=3', 'art-hongkong.webp?v=3', 'art-comer.webp?v=3', 'art-trem.webp?v=3', 'art-cha.webp?v=3', 'art-panda.webp?v=3', 'tab-sun.webp?v=3', 'tab-cal.webp?v=3', 'tab-train.webp?v=3', 'tab-bed.webp?v=3', 'tab-bowl.webp?v=3', 'tab-bag.webp?v=3'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 async function put(req, res) { if (res && (res.ok || res.type === 'opaque')) (await caches.open(CACHE)).put(req, res); }

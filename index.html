@@ -296,7 +296,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = '2lKjEzvjL/iqhlmhQwszI9QDKcUiFpGkuB3jdJbfk93u1cBzHUfQR0BxOCdYIYjwLeGqeRLSH5Zkf5xREWV0NFmD6/c=';
+const SEC = 'pN1OpFO31KeoTMURFXP9RUVGNyiejf/L6ipZtjUoa167uFcMvIYbOeigNXVTe//tZuY6Bw16oSRh9Gne+5TvCHCNKJ4=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -347,7 +347,7 @@ const LABEL = {easy:'dia leve', heavy:'dia mais puxado', move:'dia de viagem'};
 const fmtDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${d} de ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][m-1]}`; };
 const ART = {bj:'pequim', xa:'xian', sh:'xangai', sz:'shenzhen', hk:'hongkong', 'Pequim':'pequim', "Xi'an":'xian', 'Xangai':'xangai', 'Shenzhen':'shenzhen', 'Hong Kong':'hongkong'};
 const DAYART = {'2027-04-08':'panda', '2027-04-12':'cha'};
-const img = (n, cls) => `<img class="${cls}" src="art-${n}.webp" alt="" loading="lazy">`;
+const img = (n, cls) => `<img class="${cls}" src="art-${n}.webp?v=3" alt="" loading="lazy">`;
 const TENT = /Trem G\d+|[Vv]oos?\b|Chegada desejada/;
 function evText(t, label){ return TENT.test((label||'')+' '+t) ? `${esc(t)} <span class="tag tent">provisório</span>` : esc(t); }
 function dayCard(d, nowHm){
@@ -449,7 +449,7 @@ function vPratico(){
 // ---------- shell ----------
 const TABS = [['hoje','Hoje','sun',vHoje],['dias','Dias','cal',vDias],['transporte','Transporte','train',vTransporte],['hoteis','Hotéis','bed',vHoteis],['comer','Comer','bowl',vComer],['pratico','Prático','bag',vPratico]];
 function go(id){ const t = TABS.find(x => x[0]===id) || TABS[0]; t[3](); document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-'+t[0])); document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t[0])); if (location.hash !== '#'+t[0]) history.replaceState(null,'','#'+t[0]); window.scrollTo(0,0); }
-$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><img src="tab-${t[2]}.webp" alt="" width="42" height="42">${t[1]}</button>`).join('');
+$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><img src="tab-${t[2]}.webp?v=3" alt="" width="42" height="42">${t[1]}</button>`).join('');
 document.addEventListener('click', e => {
   const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
   const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
