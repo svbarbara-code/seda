@@ -1,77 +1,107 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><title>Seda · China 2027</title>
-<meta name="theme-color" content="#8E1B1B">
+<meta name="theme-color" content="#FBF6EC">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&text=%E4%B8%9D%E5%8C%97%E4%BA%AC%E8%A5%BF%E5%AE%89%E4%B8%8A%E6%B5%B7%E6%B7%B1%E5%9C%B3%E9%A6%99%E6%B8%AF&display=swap">
 <meta name="apple-mobile-web-app-title" content="Seda">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <style>
-:root{--red:#8E1B1B;--red2:#B3261E;--gold:#C9A24B;--ink:#1B1612;--paper:#F7F1E6;--card:#FFFDF8;--mute:#6E6359;--rule:#E3D9C6;--jade:#2F6F5E;--warn:#8A5A00;--warnbg:#FFF3D6;--chip:#EFE6D3}
-@media (prefers-color-scheme:dark){:root{--ink:#F1E9DC;--paper:#171210;--card:#211A17;--mute:#B4A797;--rule:#3A2F29;--jade:#7CC9B2;--warn:#F2C76B;--warnbg:#33290F;--chip:#2C231F;--red2:#E0685C}}
+:root{color-scheme:light;--paper:#FBF6EC;--card:#FFFDF7;--ink:#2A211C;--mute:#7A6A55;--red:#A61F1B;--gold:#C2A14F;--goldink:#8F722A;--rule:#E3D6BC;--wash:#F6EBCF;--jade:#2F6F5E;--serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--han:'Noto Serif SC','Songti SC','PingFang SC',serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
-.top{background:var(--red);color:#F6E7C4;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;position:relative;overflow:hidden}
-.top:after{content:"丝";position:absolute;right:-6px;top:-22px;font:400 120px/1 "Songti SC","Noto Serif SC",serif;color:#ffffff14}
-.top h1{margin:0;font:700 26px/1.1 Georgia,"Times New Roman",serif;letter-spacing:.5px}
-.top p{margin:4px 0 0;font-size:14px;color:#F0D9A6}
-.band{height:6px;background:repeating-linear-gradient(90deg,var(--gold) 0 14px,var(--red2) 14px 20px)}
-main{max-width:640px;margin:0 auto;padding:14px 16px 8px}
+html,body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+body{padding-bottom:calc(78px + env(safe-area-inset-bottom));background-image:radial-gradient(#0000000a 1px,transparent 1px);background-size:5px 5px}
+.top{max-width:640px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top)) 20px 4px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.top h1{margin:0;font:700 44px/1 var(--serif);letter-spacing:.01em}
+.top p{margin:4px 0 0;font:italic 500 19px/1.2 var(--serif);color:var(--mute)}
+.seal{flex:none;width:54px;height:54px;background:var(--red);color:#FBF1DC;border-radius:6px;display:grid;place-items:center;font:900 34px/1 var(--han);box-shadow:inset 0 0 0 3px var(--red),inset 0 0 0 4px #FBF1DC66}
+.rule{height:14px;margin:12px 0;background:linear-gradient(var(--gold),var(--gold)) center/100% 1px no-repeat}
+.rule:after{content:"◆";display:block;text-align:center;color:var(--gold);font-size:11px;line-height:14px;background:var(--paper);width:22px;margin:0 auto}
+main{max-width:640px;margin:0 auto;padding:0 20px 8px}
+main>.rule{margin-top:10px}
 section.view{display:none}section.view.on{display:block}
-h2{font:700 21px/1.2 Georgia,serif;margin:18px 0 8px}
-h3{font-size:17px;margin:0}
-p{margin:6px 0}
-.mute{color:var(--mute);font-size:15px}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:14px 16px;margin:12px 0}
-.card.hero{border-color:var(--gold);box-shadow:0 0 0 2px #C9A24B33}
-.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--red2);font-weight:700}
-.big{font:700 22px/1.2 Georgia,serif;margin:2px 0 4px}
-.count{font:700 44px/1 Georgia,serif;color:var(--red2)}
+h2{font:700 30px/1.1 var(--serif);margin:26px 0 8px}
+h3{font:700 23px/1.15 var(--serif);margin:0}
+p{margin:8px 0}
+b,strong{font-weight:700}
+.mute{color:var(--mute);font-size:16px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin:14px 0}
+.card.hero{border:1.5px solid var(--gold);background:var(--card)}
+.eyebrow{font:800 12px/1.3 var(--sans);text-transform:uppercase;letter-spacing:.16em;color:var(--goldink)}
+.big{font:700 29px/1.12 var(--serif);margin:4px 0 6px}
+.count{text-align:center;padding:10px 0 6px}
+.count .l{font:700 13px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.count b{display:block;font:700 104px/1 var(--serif);color:var(--red);margin:0 0 2px}
+.count p{font:500 23px/1.25 var(--serif);margin:8px 0 0}
+ol.route{list-style:none;margin:6px 0 0;padding:0;position:relative}
+ol.route:before{content:"";position:absolute;left:9px;top:16px;bottom:16px;width:2px;background:var(--ink);border-radius:2px;opacity:.75}
+ol.route li{display:grid;grid-template-columns:20px 1fr auto;gap:14px;align-items:baseline;padding:9px 0}
+ol.route i{width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--red);display:block;position:relative;top:4px}
+ol.route b{font:600 27px/1.1 var(--serif)}
+ol.route em{font:900 17px var(--han);color:var(--gold);font-style:normal;margin-left:8px}
+ol.route span{font-size:14.5px;color:var(--mute);font-weight:600;text-align:right}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
-.tag{font-size:13px;border-radius:999px;padding:3px 10px;background:var(--chip)}
-.tag.easy{color:var(--jade)}.tag.heavy{background:var(--warnbg);color:var(--warn)}.tag.move{color:var(--red2)}
-ul.tl{list-style:none;margin:8px 0 0;padding:0}
-ul.tl li{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--rule)}
+.tag{font:600 13px/1.3 var(--sans);border-radius:999px;padding:3px 10px;border:1px solid var(--rule);background:var(--paper);color:var(--mute);white-space:nowrap}
+.tag.easy{color:var(--jade);border-color:#B9D2C8}
+.tag.heavy{background:var(--wash);border-color:var(--gold);color:var(--goldink)}
+.tag.move{color:var(--red);border-color:#E3B9B3}
+.tag.tent{background:var(--wash);border-color:var(--gold);color:var(--goldink);font-weight:700}
+ul.tl{list-style:none;margin:10px 0 0;padding:0}
+ul.tl li{display:grid;grid-template-columns:88px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--rule)}
 ul.tl li:first-child{border-top:0}
-ul.tl .t{font-weight:700;font-variant-numeric:tabular-nums;font-size:15px}
-ul.tl li.now{background:var(--warnbg);margin:0 -10px;padding:8px 10px;border-radius:10px;border-top:0}
-.note{font-size:15px;color:var(--mute);margin-top:8px}
-.w{color:var(--warn)}
-.tag.tent{background:var(--warnbg);color:var(--warn);font-weight:600}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin:0 -16px;padding-left:16px;scrollbar-width:none}
+ul.tl .t{font:700 16px/1.5 var(--sans);font-variant-numeric:tabular-nums;color:var(--red)}
+ul.tl li.now{background:var(--wash);margin:0 -10px;padding:10px;border-radius:10px;border-top:0}
+.note{font-size:15.5px;color:var(--mute);margin-top:10px}
+.w{color:var(--goldink)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 20px 8px;margin:0 -20px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;min-height:44px}
-.chip.on{background:var(--red);border-color:var(--red);color:#F6E7C4}
-table{width:100%;border-collapse:collapse;font-size:15px}
-td,th{text-align:left;padding:8px 6px;border-top:1px solid var(--rule);vertical-align:top}
-th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--mute);border-top:0}
+.chip{flex:none;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 16px;font:600 15.5px var(--sans);min-height:44px}
+.chip.on{background:var(--red);border-color:var(--red);color:#FBF1DC}
+.btn-line{display:block;width:100%;margin:16px 0 0;border:1.5px solid var(--red);background:transparent;color:var(--red);border-radius:999px;text-align:center;padding:13px;font:700 16.5px var(--sans);min-height:48px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+td,th{text-align:left;padding:10px 6px;border-top:1px solid var(--rule);vertical-align:top}
+th{font:800 11.5px var(--sans);text-transform:uppercase;letter-spacing:.12em;color:var(--mute);border-top:0}
 td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .x{overflow-x:auto}
-label.ck{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule);min-height:44px}
+label.ck{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--rule);min-height:46px}
 label.ck:first-of-type{border-top:0}
-label.ck input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--red)}
+label.ck input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:var(--red)}
 label.ck.done span{text-decoration:line-through;color:var(--mute)}
-label.ck small{display:block;color:var(--mute)}
-.ph{display:grid;grid-template-columns:1fr 52px;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
+label.ck small{display:block;color:var(--mute);font-size:14.5px}
+.ph{display:grid;grid-template-columns:1fr 52px;gap:10px;align-items:center;padding:13px 0;border-top:1px solid var(--rule)}
 .ph:first-of-type{border-top:0}
-.zh{font:500 26px/1.25 "PingFang SC","Noto Sans SC","Songti SC",sans-serif}
-.py{color:var(--red2);font-size:15px}
-.say{width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#F6E7C4;font-size:22px}
-.say:active{transform:scale(.94)}
+.zh{font:500 27px/1.25 "PingFang SC","Noto Sans SC","Songti SC",sans-serif}
+.py{color:var(--red);font-size:15.5px}
+.say{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--red);background:var(--card);color:var(--red);font-size:22px;display:grid;place-items:center}
+.say svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.say:active{background:var(--red);color:#FBF1DC}
 .show{font:600 34px/1.3 "PingFang SC","Noto Sans SC","Songti SC",sans-serif;text-align:center;padding:10px 0}
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr);padding-bottom:env(safe-area-inset-bottom)}
-nav.tabs button{border:0;background:none;color:var(--mute);font:inherit;font-size:11.5px;padding:8px 2px 9px;min-height:60px;display:flex;flex-direction:column;align-items:center;gap:2px}
-nav.tabs button i{font-style:normal;font-size:22px;line-height:1}
-nav.tabs button.on{color:var(--red2);font-weight:700}
-dialog{border:0;border-radius:18px;padding:18px;max-width:92vw;width:420px;background:var(--card);color:var(--ink)}
-dialog::backdrop{background:#000a}
-.btn{border:0;border-radius:12px;background:var(--red);color:#F6E7C4;font:inherit;font-weight:600;padding:12px 16px;min-height:44px;width:100%}
-.foot{font-size:13px;color:var(--mute);text-align:center;margin:18px 0 6px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 2px env(safe-area-inset-bottom)}
+nav.tabs button{border:0;background:none;color:#8C7C68;font:700 11px var(--sans);padding:6px 0 8px;min-height:58px;display:flex;flex-direction:column;align-items:center;gap:4px}
+nav.tabs svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button.on{color:var(--red)}
+dialog{border:1.5px solid var(--gold);border-radius:14px;padding:20px;max-width:92vw;width:420px;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:#2A211Ccc}
+.btn{border:0;border-radius:999px;background:var(--red);color:#FBF1DC;font:700 16.5px var(--sans);padding:13px 16px;min-height:48px;width:100%}
+.foot{font:italic 500 16px/1.4 var(--serif);color:var(--mute);text-align:center;margin:22px 0 6px}
 </style>
 </head><body>
-<header class="top"><h1>Seda</h1><p id="sub">China e Hong Kong · 3 a 18 de abril de 2027</p></header>
-<div class="band"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+ <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+ <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+ <symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l2-4M15 21l-2-4M9 14h.01M15 14h.01"/></symbol>
+ <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V7M3 13h18v5M21 13v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="10.5" r="1.6"/></symbol>
+ <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0zM8 20h8M9 3l3 8M15 3l-1 8"/></symbol>
+ <symbol id="i-bag" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="2.5"/><path d="M9 8V6a3 3 0 0 1 6 0v2M4 13h16"/></symbol>
+ <symbol id="i-say" viewBox="0 0 24 24"><path d="M4 10v4h3l5 4V6L7 10H4zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></symbol>
+</defs></svg>
+<header class="top"><div><h1>Seda</h1><p id="sub">China e Hong Kong, abril de 2027</p></div><div class="seal" aria-hidden="true">丝</div></header>
 <main>
+<div class="rule"></div>
 <section class="view on" id="v-hoje"></section>
 <section class="view" id="v-dias"></section>
 <section class="view" id="v-transporte"></section>
@@ -87,6 +117,7 @@ dialog::backdrop{background:#000a}
 // ---------- data ----------
 const TZ = 'Asia/Shanghai'; // Hong Kong uses the same clock
 const TRIP_START = '2027-04-03', TRIP_END = '2027-04-18';
+const HAN = {'Pequim':'北京',"Xi'an":'西安','Xangai':'上海','Shenzhen':'深圳','Hong Kong':'香港'};
 const CITY = {bj:'Pequim', xa:"Xi'an", sh:'Xangai', sz:'Shenzhen', hk:'Hong Kong', air:'No ar', home:'Em casa'};
 // k: easy | heavy | move
 const DAYS = [
@@ -269,8 +300,8 @@ function vHoje(){
     if (next) h += `<h2>Amanhã</h2>` + dayCard(next);
   } else if (here.iso < DAYS[0].iso) {
     const days = Math.ceil((Date.parse('2027-04-04T00:00:00+08:00') - n.getTime()) / 864e5);
-    h += `<div class="card hero"><div class="eyebrow">Contagem regressiva</div><div class="count">${days}</div><p>${days===1?'dia':'dias'} até o encontro em Pequim, no domingo, 4 de abril de 2027.</p></div>`;
-    h += `<div class="card"><div class="eyebrow">A viagem</div><div class="big">Pequim → Xi'an → Xangai → Shenzhen → Hong Kong</div><p class="mute">13 noites, 5 hotéis. Bárbara, Pai e Mãe juntos na China e em Hong Kong. Os voos de ida e de volta são separados.</p>${tbl(['Cidade','Noites','Datas'], NIGHTS.map(r=>[r[0],r[1],r[2]]))}</div>`;
+    h += `<div class="count"><div class="l">${days===1?'Falta':'Faltam'}</div><b>${days}</b><div class="l">${days===1?'dia':'dias'}</div><p>para o encontro em Pequim,<br>domingo, 4 de abril de 2027</p></div><div class="rule"></div>`;
+    h += `<ol class="route">${NIGHTS.map(r=>`<li><i></i><b>${esc(r[0])}<em>${HAN[r[0]]||''}</em></b><span>${esc(r[1])}<br>${esc(r[2])}</span></li>`).join('')}</ol><p class="mute">Bárbara, Pai e Mãe juntos na China e em Hong Kong. Os voos de ida e de volta são separados.</p><button class="btn-line" data-day="2027-04-04">Ver o primeiro dia</button><div class="rule"></div>`;
     const st = store.get('ck', {}), nextTodo = TODO.flatMap(g => g[1].map(i => ['todo:'+i[0], i[1], g[0]])).filter(x => !st[x[0]]).slice(0,3);
     if (nextTodo.length) h += `<div class="card"><div class="eyebrow">Próximos passos</div><ul class="tl">${nextTodo.map(x=>`<li><span class="t">${esc(x[2])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul><p class="note">A lista completa está em Prático.</p></div>`;
     h += `<h2>Primeiro dia juntos</h2>` + dayCard(DAYS[2]);
@@ -297,11 +328,11 @@ function vHoteis(){
 function vComer(){
   $('#v-comer').innerHTML = `<h2>Onde comer</h2><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
   FOOD.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><ul class="tl">${rows.map(r=>`<li><span class="t">${esc(r[0])}</span><span>${r[1]==='Especial'?'<b>':''}${esc(r[2])}${r[1]==='Especial'?'</b>':''}</span></li>`).join('')}</ul></div>`).join('') +
-  `<h2>Pratos para pedir</h2><div class="card">${DISHES.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="zh-CN" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`;
+  `<h2>Pratos para pedir</h2><div class="card">${DISHES.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="zh-CN" aria-label="Ouvir"><svg aria-hidden="true"><use href="#i-say"/></svg></button></div>`).join('')}</div>`;
 }
 function frasesHtml(){
   return `<p class="mute">Toque no alto-falante para ouvir, ou mostre a tela para a pessoa.</p>` +
-  PHRASES.map(([t,lang,rows])=>`<div class="card"><div class="eyebrow">${esc(t)}</div>${rows.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="${lang}" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`).join('') +
+  PHRASES.map(([t,lang,rows])=>`<div class="card"><div class="eyebrow">${esc(t)}</div>${rows.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="${lang}" aria-label="Ouvir"><svg aria-hidden="true"><use href="#i-say"/></svg></button></div>`).join('')}</div>`).join('') +
   `<h2>Para mostrar ao motorista</h2><p class="mute">Toque em um lugar para abrir o nome bem grande.</p>` +
   TAXI.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><div class="tags">${rows.map(r=>`<button class="chip" data-show="${esc(r[1])}" data-pt="${esc(r[0])}" data-t="Mostrar ao motorista">${esc(r[0])}</button>`).join('')}</div></div>`).join('');
 }
@@ -316,14 +347,15 @@ function vPratico(){
   $('#v-pratico').innerHTML = `<div class="chips">${subs.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-prat="${c[0]}">${c[1]}</button>`).join('')}</div>` + (sel==='frases' ? frasesHtml() : sel==='info' ? info() : fazer());
 }
 // ---------- shell ----------
-const TABS = [['hoje','Hoje','☀️',vHoje],['dias','Dias','🗓️',vDias],['transporte','Transporte','🚆',vTransporte],['hoteis','Hotéis','🏨',vHoteis],['comer','Comer','🥢',vComer],['pratico','Prático','🎒',vPratico]];
+const TABS = [['hoje','Hoje','sun',vHoje],['dias','Dias','cal',vDias],['transporte','Transporte','train',vTransporte],['hoteis','Hotéis','bed',vHoteis],['comer','Comer','bowl',vComer],['pratico','Prático','bag',vPratico]];
 function go(id){ const t = TABS.find(x => x[0]===id) || TABS[0]; t[3](); document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-'+t[0])); document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t[0])); if (location.hash !== '#'+t[0]) history.replaceState(null,'','#'+t[0]); window.scrollTo(0,0); }
-$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><i>${t[2]}</i>${t[1]}</button>`).join('');
+$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><svg aria-hidden="true"><use href="#i-${t[2]}"/></svg>${t[1]}</button>`).join('');
 document.addEventListener('click', e => {
   const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
   const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
   const sh = e.target.closest('[data-show]'); if (sh) return showCard(sh.dataset.t, sh.dataset.show, sh.dataset.pt);
   const c = e.target.closest('[data-city]'); if (c) { store.set('city', c.dataset.city); return vDias(); }
+  const dy = e.target.closest('[data-day]'); if (dy) { store.set('city','all'); go('dias'); const el = document.querySelector('#v-dias [id="day-'+dy.dataset.day+'"]'); if (el) el.scrollIntoView(); return; }
   const pr = e.target.closest('[data-prat]'); if (pr) { store.set('prat', pr.dataset.prat); vPratico(); window.scrollTo(0,0); }
 });
 document.addEventListener('change', e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; const st = store.get('ck', {}); st[k] = e.target.checked; store.set('ck', st); e.target.closest('label').classList.toggle('done', e.target.checked); });
