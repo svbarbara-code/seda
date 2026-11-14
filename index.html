@@ -132,6 +132,17 @@ ol.steps li>span:last-child{font-size:14.5px;color:var(--mute)}
 .det ul.tl .t{font:800 11.5px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.12em;color:var(--goldink)}
 .resnum{font:700 22px var(--sans);letter-spacing:.04em;font-variant-numeric:tabular-nums}
 .inline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.art{display:block;width:100%;height:auto;margin:2px 0 -14px}
+.cityban{position:relative;margin:22px 0 -4px;border-radius:12px;overflow:hidden;border:1px solid var(--rule);background:#FBEEDC}
+.cityban img{display:block;width:100%;height:132px;object-fit:cover;object-position:78% 62%}
+.cityban div{position:absolute;left:16px;bottom:12px;font:700 30px/1 var(--serif);color:var(--ink)}
+.cityban em{font:900 17px var(--han);color:var(--goldink);font-style:normal;margin-left:8px}
+.card .ban{display:block;width:calc(100% + 36px);max-width:none;height:112px;object-fit:cover;object-position:78% 62%;margin:-16px -18px 14px;border-radius:11px 11px 0 0;border-bottom:1px solid var(--rule)}
+.spot{float:right;width:92px;height:92px;margin:-8px -8px 2px 8px}
+.hrow{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.hrow h2{margin-bottom:10px}
+.hspot{flex:none;width:92px;height:92px;margin:0 -4px -2px 0}
+.cityban img[src*=xian],.card .ban[src*=xian]{object-position:92% 20%}
 .foot{font:italic 500 16px/1.4 var(--serif);color:var(--mute);text-align:center;margin:22px 0 6px}
 </style>
 </head><body>
@@ -283,7 +294,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'eO7W6qRkgSqOdUwF/WwQ6mXxKEdzxja+rG+81K0ncCDL9uLyqGanVr/+0vSVTC86fcHyGJaIYYnV/TOOb6xEHuhUIG0=';
+const SEC = 'Kro/eiOhEzEUqo68vcrIWZ8SHvMFscFt0MZDFxaqsn93whzVvSwnRgwyJge8R04bdSonSOoXLQzhvMdrbA0YLyT5l+A=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -332,11 +343,14 @@ function inTZ(d){ const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA',{
 const store = { get(k,d){ try{ const v = localStorage.getItem('seda:'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem('seda:'+k, JSON.stringify(v)); }catch(e){} } };
 const LABEL = {easy:'dia leve', heavy:'dia mais puxado', move:'dia de viagem'};
 const fmtDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${d} de ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][m-1]}`; };
+const ART = {bj:'pequim', xa:'xian', sh:'xangai', sz:'shenzhen', hk:'hongkong', 'Pequim':'pequim', "Xi'an":'xian', 'Xangai':'xangai', 'Shenzhen':'shenzhen', 'Hong Kong':'hongkong'};
+const DAYART = {'2027-04-08':'panda', '2027-04-12':'cha'};
+const img = (n, cls) => `<img class="${cls}" src="art-${n}.webp" alt="" loading="lazy">`;
 const TENT = /Trem G\d+|[Vv]oos?\b|Chegada desejada/;
 function evText(t, label){ return TENT.test((label||'')+' '+t) ? `${esc(t)} <span class="tag tent">provisório</span>` : esc(t); }
 function dayCard(d, nowHm){
   let cur = -1; if (nowHm) d.ev.forEach((e,i) => { if (/^\d\d:\d\d$/.test(e[0]) && e[0] <= nowHm) cur = i; });
-  return `<div class="card" id="day-${d.iso}"><div class="eyebrow">${d.wd} · ${fmtDate(d.iso)} · ${esc(CITY[d.c])}</div><div class="big">${esc(d.t)}</div>
+  return `<div class="card" id="day-${d.iso}">${DAYART[d.iso]?img(DAYART[d.iso],'spot'):''}<div class="eyebrow">${d.wd} · ${fmtDate(d.iso)} · ${esc(CITY[d.c])}</div><div class="big">${esc(d.t)}</div>
   <div class="tags">${d.k.map(k=>`<span class="tag ${k}">${LABEL[k]}</span>`).join('')}${d.km?`<span class="tag">a pé: ${esc(d.km)}</span>`:''}</div>
   <ul class="tl">${d.ev.map((e,i)=>`<li class="${i===cur?'now':''}"><span class="t">${esc(e[0])}</span><span>${evText(e[1], e[0])}</span></li>`).join('')}</ul>${d.n?`<div class="note">${esc(d.n)}</div>`:''}</div>`;
 }
@@ -374,7 +388,7 @@ function vHoje(){
     if (next) h += `<h2>Amanhã</h2>` + dayCard(next);
   } else if (here.iso < DAYS[0].iso) {
     const days = Math.ceil((Date.parse('2027-04-04T00:00:00+08:00') - n.getTime()) / 864e5);
-    h += `<div class="count"><div class="l">${days===1?'Falta':'Faltam'}</div><b>${days}</b><div class="l">${days===1?'dia':'dias'}</div><p>para o encontro em Pequim,<br>domingo, 4 de abril de 2027</p></div><div class="rule"></div>`;
+    h += img('muralha','art') + `<div class="count"><div class="l">${days===1?'Falta':'Faltam'}</div><b>${days}</b><div class="l">${days===1?'dia':'dias'}</div><p>para o encontro em Pequim,<br>domingo, 4 de abril de 2027</p></div><div class="rule"></div>`;
     h += `<ol class="route">${NIGHTS.map(r=>`<li><i></i><b>${esc(r[0])}<em>${HAN[r[0]]||''}</em></b><span>${esc(r[1])}<br>${esc(r[2])}</span></li>`).join('')}</ol><p class="mute">Bárbara, Pai e Mãe juntos na China e em Hong Kong. Os voos de ida e de volta são separados.</p><button class="btn-line" data-day="2027-04-04">Ver o primeiro dia</button><div class="rule"></div>`;
     const st = store.get('ck', {}), nextTodo = TODO.flatMap(g => g[1].map(i => ['todo:'+i[0], i[1], g[0]])).filter(x => !st[x[0]]).slice(0,3);
     if (nextTodo.length) h += `<div class="card"><div class="eyebrow">Próximos passos</div><ul class="tl">${nextTodo.map(x=>`<li><span class="t">${esc(x[2])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul><p class="note">A lista completa está em Prático.</p></div>`;
@@ -387,10 +401,10 @@ function vHoje(){
 function vDias(){
   const cities = [['all','Todos'],['bj','Pequim'],['xa',"Xi'an"],['sh','Xangai'],['sz','Shenzhen'],['hk','Hong Kong']], sel = store.get('city','all');
   const list = DAYS.filter(d => sel==='all' || d.c===sel);
-  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens e voos marcados como <b>provisório</b> ainda não estão comprados nem reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map(d=>dayCard(d)).join('');
+  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China. Trens e voos marcados como <b>provisório</b> ainda não estão comprados nem reservados. Dos voos, mostramos só a chegada desejada.</p>` + list.map((d,i)=>((ART[d.c] && (i===0 || list[i-1].c!==d.c)) ? `<div class="cityban">${img(ART[d.c],'')}<div>${esc(CITY[d.c])}<em>${HAN[CITY[d.c]]||''}</em></div></div>` : '') + dayCard(d)).join('');
 }
 function vTransporte(){
-  $('#v-transporte').innerHTML = `<h2>Voos</h2><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p><div class="card"><div class="eyebrow">Quem voa com quem</div><p>Bárbara vai e volta em voos separados dos do Pai e da Mãe. Pai e Mãe vão antes e passam alguns dias em Istambul. Os três se encontram em Pequim no domingo, 4 de abril, e ficam juntos na China e em Hong Kong.</p></div>
+  $('#v-transporte').innerHTML = `<div class="hrow"><h2>Voos</h2>${img('trem','hspot')}</div><p class="mute">Nenhum voo foi comprado ainda. Por enquanto, aqui fica só o dia e a hora em que queremos chegar.</p><div class="card"><div class="eyebrow">Quem voa com quem</div><p>Bárbara vai e volta em voos separados dos do Pai e da Mãe. Pai e Mãe vão antes e passam alguns dias em Istambul. Os três se encontram em Pequim no domingo, 4 de abril, e ficam juntos na China e em Hong Kong.</p></div>
   <div class="card"><div class="eyebrow">Chegada desejada</div><p><span class="tag tent">provisório</span> Os voos ainda não foram comprados. Dias e horas são o que queremos, e podem mudar.</p><div class="x"><table><tr><th>Trecho</th><th>Quem</th><th>Dia</th><th>Hora</th></tr>${ARRIVE.map(r=>`<tr><td>${esc(r[0])}<br><span class="tag tent">provisório</span></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join('')}</table></div><p class="note">Os números dos voos e os horários de saída entram aqui quando as passagens forem compradas.</p></div>
   <h2>Trens</h2><div class="card"><p><span class="tag tent">provisório</span> Os trens ainda não estão reservados. Números e horários são os de hoje e podem mudar.</p><div class="x"><table><tr><th>Dia</th><th>Trecho</th><th>Como</th><th>Horário</th></tr>${LEGS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}<br><span class="tag tent">provisório</span></td><td>${esc(r[2])}</td><td>${esc(r[3])}<br><span class="mute">${esc(r[4])}</span></td></tr>`).join('')}</table></div><p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Conferir tudo quando a venda abrir.</p></div>`;
 }
@@ -403,14 +417,14 @@ function bookedHtml(city){ const b = BOOKED[city], z = ADDR_ZH[city];
   <div class="box"><span class="k">Endereço</span>${z?`<div class="inline"><span class="zh" style="font-size:21px">${esc(z)}</span><button class="chip" data-copy="${esc(z)}">Copiar</button></div>`:''}<span class="sm">${esc(b.addr)}</span><a class="tel" href="tel:${esc(b.tel.replace(/\s/g,''))}">${esc(b.tel)}</a></div>`; }
 function vHoteis(){
   $('#v-hoteis').innerHTML = `<h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Toque em "Ver detalhes" para abrir o resto.</p>` +
-  NIGHTS.map(r=>`<div class="card hotel"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>
+  NIGHTS.map(r=>`<div class="card hotel">${ART[r[0]]?img(ART[r[0]],'ban'):''}<div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>
    <div class="tags">${r[6]==='ok'?'<span class="tag easy">reservado</span>':'<span class="tag tent">ainda não reservado</span>'}</div>
    <p class="line">${r[7].split(' · ').map(x=>`<span>${esc(x)}</span>`).join(' · ')}</p>
    <div class="acts">${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-addr="${esc(ADDR_ZH[r[0]]||'')}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Nome em chinês</button>`:''}<details><summary class="chip">Ver detalhes</summary><div class="det">${r[5]?`<p>${esc(r[5])}</p>`:''}${BOOKED[r[0]]?bookedHtml(r[0]):''}</div></details></div></div>`).join('') +
   `<p class="note">Na chegada a cada hotel: levar os passaportes e pedir um cartão com o endereço em chinês.</p>`;
 }
 function vComer(){
-  $('#v-comer').innerHTML = `<h2>Onde comer</h2><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
+  $('#v-comer').innerHTML = `<div class="hrow"><h2>Onde comer</h2>${img('comer','hspot')}</div><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
   FOOD.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><ul class="tl">${rows.map(r=>`<li><span class="t">${esc(r[0])}</span><span>${r[1]==='Especial'?'<b>':''}${esc(r[2])}${r[1]==='Especial'?'</b>':''}</span></li>`).join('')}</ul></div>`).join('') +
   `<h2>Pratos para pedir</h2><div class="card">${DISHES.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="zh-CN" aria-label="Ouvir"><svg aria-hidden="true"><use href="#i-say"/></svg></button></div>`).join('')}</div>`;
 }
