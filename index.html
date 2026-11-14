@@ -1,0 +1,326 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><title>Seda · China 2027</title>
+<meta name="theme-color" content="#8E1B1B">
+<meta name="apple-mobile-web-app-title" content="Seda">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<style>
+:root{--red:#8E1B1B;--red2:#B3261E;--gold:#C9A24B;--ink:#1B1612;--paper:#F7F1E6;--card:#FFFDF8;--mute:#6E6359;--rule:#E3D9C6;--jade:#2F6F5E;--warn:#8A5A00;--warnbg:#FFF3D6;--chip:#EFE6D3}
+@media (prefers-color-scheme:dark){:root{--ink:#F1E9DC;--paper:#171210;--card:#211A17;--mute:#B4A797;--rule:#3A2F29;--jade:#7CC9B2;--warn:#F2C76B;--warnbg:#33290F;--chip:#2C231F;--red2:#E0685C}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+.top{background:var(--red);color:#F6E7C4;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;position:relative;overflow:hidden}
+.top:after{content:"丝";position:absolute;right:-6px;top:-22px;font:400 120px/1 "Songti SC","Noto Serif SC",serif;color:#ffffff14}
+.top h1{margin:0;font:700 26px/1.1 Georgia,"Times New Roman",serif;letter-spacing:.5px}
+.top p{margin:4px 0 0;font-size:14px;color:#F0D9A6}
+.band{height:6px;background:repeating-linear-gradient(90deg,var(--gold) 0 14px,var(--red2) 14px 20px)}
+main{max-width:640px;margin:0 auto;padding:14px 16px 8px}
+section.view{display:none}section.view.on{display:block}
+h2{font:700 21px/1.2 Georgia,serif;margin:18px 0 8px}
+h3{font-size:17px;margin:0}
+p{margin:6px 0}
+.mute{color:var(--mute);font-size:15px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:14px 16px;margin:12px 0}
+.card.hero{border-color:var(--gold);box-shadow:0 0 0 2px #C9A24B33}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--red2);font-weight:700}
+.big{font:700 22px/1.2 Georgia,serif;margin:2px 0 4px}
+.count{font:700 44px/1 Georgia,serif;color:var(--red2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.tag{font-size:13px;border-radius:999px;padding:3px 10px;background:var(--chip)}
+.tag.easy{color:var(--jade)}.tag.heavy{background:var(--warnbg);color:var(--warn)}.tag.move{color:var(--red2)}
+ul.tl{list-style:none;margin:8px 0 0;padding:0}
+ul.tl li{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--rule)}
+ul.tl li:first-child{border-top:0}
+ul.tl .t{font-weight:700;font-variant-numeric:tabular-nums;font-size:15px}
+ul.tl li.now{background:var(--warnbg);margin:0 -10px;padding:8px 10px;border-radius:10px;border-top:0}
+.note{font-size:15px;color:var(--mute);margin-top:8px}
+.w{color:var(--warn)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin:0 -16px;padding-left:16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:15px;min-height:44px}
+.chip.on{background:var(--red);border-color:var(--red);color:#F6E7C4}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{text-align:left;padding:8px 6px;border-top:1px solid var(--rule);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--mute);border-top:0}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.x{overflow-x:auto}
+label.ck{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule);min-height:44px}
+label.ck:first-of-type{border-top:0}
+label.ck input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--red)}
+label.ck.done span{text-decoration:line-through;color:var(--mute)}
+label.ck small{display:block;color:var(--mute)}
+.ph{display:grid;grid-template-columns:1fr 52px;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--rule)}
+.ph:first-of-type{border-top:0}
+.zh{font:500 26px/1.25 "PingFang SC","Noto Sans SC","Songti SC",sans-serif}
+.py{color:var(--red2);font-size:15px}
+.say{width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#F6E7C4;font-size:22px}
+.say:active{transform:scale(.94)}
+.show{font:600 34px/1.3 "PingFang SC","Noto Sans SC","Songti SC",sans-serif;text-align:center;padding:10px 0}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{border:0;background:none;color:var(--mute);font:inherit;font-size:11.5px;padding:8px 2px 9px;min-height:60px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabs button i{font-style:normal;font-size:22px;line-height:1}
+nav.tabs button.on{color:var(--red2);font-weight:700}
+dialog{border:0;border-radius:18px;padding:18px;max-width:92vw;width:420px;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:#000a}
+.btn{border:0;border-radius:12px;background:var(--red);color:#F6E7C4;font:inherit;font-weight:600;padding:12px 16px;min-height:44px;width:100%}
+.foot{font-size:13px;color:var(--mute);text-align:center;margin:18px 0 6px}
+</style>
+</head><body>
+<header class="top"><h1>Seda</h1><p id="sub">China e Hong Kong · 3 a 18 de abril de 2027</p></header>
+<div class="band"></div>
+<main>
+<section class="view on" id="v-hoje"></section>
+<section class="view" id="v-dias"></section>
+<section class="view" id="v-viagem"></section>
+<section class="view" id="v-comer"></section>
+<section class="view" id="v-frases"></section>
+<section class="view" id="v-pratico"></section>
+<div class="foot">Plano aprovado em 14 nov 2026. Nada está reservado ainda. Horários e preços podem mudar.</div>
+</main>
+<nav class="tabs" id="tabs"></nav>
+<dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></dialog>
+<script>
+'use strict';
+// ---------- data ----------
+const TZ = 'Asia/Shanghai'; // Hong Kong uses the same clock
+const TRIP_START = '2027-04-03', TRIP_END = '2027-04-18';
+const CITY = {bj:'Pequim', xa:"Xi'an", sh:'Xangai', sz:'Shenzhen', hk:'Hong Kong', air:'No ar', home:'Em casa'};
+// k: easy | heavy | move
+const DAYS = [
+ {iso:'2027-04-02', wd:'Sex', c:'air', t:'Saída do Brasil', k:['move'], ev:[
+  ['Noite','Ida para o aeroporto. Bárbara sai de São Paulo; papai e mamãe saem do Rio.'],
+  ['Antes de sair','Passaportes, certificado de febre amarela, vistos, Alipay funcionando, eSIM instalado nos três celulares.']]},
+ {iso:'2027-04-03', wd:'Sáb', c:'air', t:'Voando: Brasil → Dubai', k:['move'], ev:[
+  ['01:35','Bárbara: voo EK262, São Paulo → Dubai (chega 23:00).'],
+  ['03:30','Papai e mamãe: voo EK248, Rio → Dubai (chega 00:30 de domingo).'],
+  ['Em Dubai','Os três se encontram no portão do voo para Pequim.']]},
+ {iso:'2027-04-04', wd:'Dom', c:'bj', t:'Chegada a Pequim', k:['easy'], km:'0,5 km', ev:[
+  ['03:50','Voo EK306, Dubai → Pequim, os três juntos.'],
+  ['15:25','Chegada ao aeroporto de Pequim (PEK). Carro até o hotel.'],
+  ['17:30','Hotel em Wangfujing.'],
+  ['18:30','Jantar no hotel ou ao lado. Dormir cedo. Hoje não tem passeio.']], n:'Feriado de Qingming (3 a 5 de abril).'},
+ {iso:'2027-04-05', wd:'Seg', c:'bj', t:'Hutongs de riquixá (só de manhã)', k:['easy'], km:'cerca de 1 km', ev:[
+  ['09:30','Táxi até Shichahai.'],
+  ['10:00','Passeio de riquixá pelos hutongs, sentados, dois por riquixá (50 min).'],
+  ['11:45','Almoço: macarrão puxado à mão, perto do hotel.'],
+  ['13:00','Hotel. Tarde livre para descansar.']], n:'Opcional, só se acordarem cedo e bem: Templo do Céu às 08:00.'},
+ {iso:'2027-04-06', wd:'Ter', c:'bj', t:'Grande Muralha em Mutianyu', k:[], km:'cerca de 2,5 km', ev:[
+  ['07:30','Carro com motorista (1h30 a 2h de viagem).'],
+  ['09:30','Ônibus interno e teleférico fechado até a Torre 14.'],
+  ['10:00','Na Muralha: da Torre 14 à 15 e volta, o trecho mais suave. Devagar, pelo lado do corrimão.'],
+  ['12:00','Almoço ao pé da Muralha.'],
+  ['14:45','Hotel. Tarde livre.']], n:'Levar: agasalho (manhã fria, cerca de 7 °C), chapéu, água, lenços. Quem cansar pode ficar na plataforma do teleférico, que já fica na Muralha.'},
+ {iso:'2027-04-07', wd:'Qua', c:'bj', t:'Cidade Proibida', k:['heavy'], km:'cerca de 3 km, em pedra irregular', ev:[
+  ['08:00','Táxi até o lado leste (evita a fila da Praça Tiananmen).'],
+  ['08:30','Entrada. Roteiro curto pelo eixo central, com descanso sentado em cada pátio.'],
+  ['11:15','Saída pelo portão leste. Táxi.'],
+  ['12:00','Almoço: pato de Pequim no Dadong.'],
+  ['13:30','Hotel. Tarde e noite livres.']], n:'Levar os passaportes: são conferidos na entrada. Sapato confortável.'},
+ {iso:'2027-04-08', wd:'Qui', c:'bj', t:'Pandas e barco pelo canal imperial', k:['easy'], km:'cerca de 2,3 km, quase tudo entre assentos', ev:[
+  ['08:40','Táxi até o Zoológico de Pequim.'],
+  ['09:00','Casa dos Pandas Gigantes.'],
+  ['11:30','Barco pelo canal imperial até o Palácio de Verão (1 hora). Lanche reforçado a bordo.'],
+  ['12:45','Palácio de Verão: balsa até a ilha e a Ponte dos Dezessete Arcos.'],
+  ['14:30','Hotel e almoço leve. Depois, nada.'],
+  ['18:30','Jantar de despedida de Pequim. Arrumar as malas.']], n:'Se o barco não estiver funcionando: pandas e volta ao hotel às 11:30.'},
+ {iso:'2027-04-09', wd:'Sex', c:'xa', t:"Trem para Xi'an e muralha da cidade", k:['move'], km:'cerca de 2 km', ev:[
+  ['08:15','Carro até a estação Pequim Oeste.'],
+  ['09:55','Trem G365 para Xi\'an Norte (chega 14:05). Almoço no trem.'],
+  ['15:00','Hotel perto da Torre do Sino. Descanso.'],
+  ['18:00','Muralha da cidade, de carrinho elétrico, ao pôr do sol.'],
+  ['19:30','Espetinhos (chuanr) no Bairro Muçulmano.'],
+  ['20:30','Hotel.']], n:'A subida da muralha tem 40 a 60 degraus íngremes, uma vez só. Se chegarem cansados, a muralha pode ficar de fora.'},
+ {iso:'2027-04-10', wd:'Sáb', c:'xa', t:'Exército de Terracota', k:['heavy'], km:'cerca de 3 km', ev:[
+  ['07:40','Carro com motorista (40 a 60 min).'],
+  ['08:30','Primeira entrada, com guia: Fosso 1, Fosso 3, Fosso 2 e a sala de exposição.'],
+  ['11:30','Saída.'],
+  ['13:00','Almoço: macarrão biangbiang, perto da Torre do Sino.'],
+  ['14:00','Hotel. Tarde livre.'],
+  ['18:00','Banquete de dumplings no De Fa Chang.']], n:'Levar os passaportes.'},
+ {iso:'2027-04-11', wd:'Dom', c:'sh', t:'Voo para Xangai', k:['move','easy'], km:'cerca de 1,5 km', ev:[
+  ['08:15','Carro até o aeroporto de Xi\'an.'],
+  ['11:00','Voo MU2155 para Xangai Hongqiao (chega 13:10). Levar um lanche reforçado.'],
+  ['14:30','Hotel na Nanjing East Road. Almoço tardio e descanso.'],
+  ['17:30','Opcional (papai): loja da Huawei ao lado do hotel.'],
+  ['18:30','Jantar tranquilo perto do hotel.']]},
+ {iso:'2027-04-12', wd:'Seg', c:'sh', t:'Cerimônia do chá, seda e Torre de Xangai', k:['easy'], km:'cerca de 2,3 km', ev:[
+  ['09:00','Táxi.'],
+  ['09:30','Cerimônia do chá tradicional (2 horas, sentados).'],
+  ['11:50','Mercado de tecidos: seda, lenços, alfaiates (1 hora).'],
+  ['13:15','Almoço no hotel. Descanso até 16:45.'],
+  ['17:15','Torre de Xangai, 118º andar: o dia, o pôr do sol e as luzes acendendo.'],
+  ['19:15','Jantar com vista no Jin Xuan, 53º andar.'],
+  ['21:00','Hotel.']], n:'Se a torre estiver encoberta, ir na terça por volta das 16:00.'},
+ {iso:'2027-04-13', wd:'Ter', c:'sh', t:'Jardim Yu, bordado e acrobatas', k:[], km:'cerca de 2,6 km, em três partes curtas', ev:[
+  ['08:45','Táxi.'],
+  ['09:00','Jardim Yu, na abertura.'],
+  ['11:00','Almoço: xiaolongbao no Nanxiang.'],
+  ['12:30','Hotel. Descanso.'],
+  ['15:00','Museu de Artes e Ofícios, com oficinas de bordado.'],
+  ['17:15','Jantar cedo.'],
+  ['19:30','Show de acrobatas ERA. Volta por volta das 21:15.']], n:'Arrumar as malas antes do show.'},
+ {iso:'2027-04-14', wd:'Qua', c:'sz', t:'Voo para Shenzhen', k:['move','easy'], km:'cerca de 1,5 km', ev:[
+  ['08:30','Carro até o aeroporto de Hongqiao.'],
+  ['11:00','Voo MU5339 para Shenzhen (chega 13:30).'],
+  ['14:45','Hotel em Futian. Descanso.'],
+  ['16:15','Opcional (papai e Bárbara): primeira olhada no mercado de eletrônicos. Só olhar e comparar.'],
+  ['18:15','Jantar cantonês tranquilo.']], n:'Lá fora 28 °C, dentro ar-condicionado forte: levar um casaquinho.'},
+ {iso:'2027-04-15', wd:'Qui', c:'hk', t:'Mercado de eletrônicos e trem para Hong Kong', k:['heavy','move'], km:'cerca de 3 km, mais o salão da fronteira', ev:[
+  ['09:45','Check-out. Malas na recepção. Táxi até Huaqiangbei.'],
+  ['10:00','Showroom de aparelhos de IA: óculos tradutores, robôs, novidades para testar.'],
+  ['10:45','Mercado de eletrônicos, com calma. A compra do papai.'],
+  ['12:30','Almoço: dim sum ao lado do mercado.'],
+  ['14:00','Sair do hotel com as malas para a estação Futian.'],
+  ['14:56','Trem G5647 para Hong Kong (chega 15:10).'],
+  ['15:10','Estação West Kowloon: saída da China e entrada em Hong Kong no mesmo salão. Depois, táxi.'],
+  ['16:15','Hotel. Descanso.'],
+  ['18:30','Jantar no próprio hotel.']], n:'Mamãe pode pular o mercado e encontrar os dois no almoço. Pedir recibo com o nome da loja, o produto e o preço. A compra vai na bagagem de mão.'},
+ {iso:'2027-04-16', wd:'Sex', c:'hk', t:'O Pico e o porto de barco', k:[], km:'cerca de 2,5 km', ev:[
+  ['08:30','Táxi direto ao alto do Pico. Mirante.'],
+  ['10:00','Descida de bondinho. Depois, a balsa Star Ferry.'],
+  ['11:30','Almoço leve à beira do porto.'],
+  ['13:00','Hotel. Descanso até 16:45.'],
+  ['17:30','Passeio de barco pelo porto, ao pôr do sol (65 min).'],
+  ['19:00','Jantar de despedida com vista para o porto.']], n:'Se o Pico estiver encoberto de manhã, trocar com o museu de sábado.'},
+ {iso:'2027-04-17', wd:'Sáb', c:'hk', t:'Museu do Palácio, dim sum e volta', k:[], km:'cerca de 2 km', ev:[
+  ['Manhã','Bárbara fecha o quarto dela; as malas vão para o quarto do papai e da mamãe.'],
+  ['09:45','Táxi.'],
+  ['10:00','Museu do Palácio de Hong Kong: tesouros da Cidade Proibida.'],
+  ['12:00','O dim sum da mamãe, à beira do porto.'],
+  ['13:45','Opcional: loja Yue Hwa, para seda, bordados e chá.'],
+  ['15:00','Hotel. Descanso e malas.'],
+  ['17:30','Jantar leve perto do hotel.'],
+  ['20:45','Táxi para o aeroporto.']]},
+ {iso:'2027-04-18', wd:'Dom', c:'home', t:'Volta para casa', k:['move'], ev:[
+  ['00:05','Voo EK381, Hong Kong → Dubai, os três juntos (chega 04:25).'],
+  ['08:05','Papai e mamãe: voo EK247, Dubai → Rio (chega 16:05).'],
+  ['09:05','Bárbara: voo EK261, Dubai → São Paulo (chega 17:40).']]}
+];
+const NIGHTS = [['Pequim','5 noites','4 a 8 abr','Sunworld Beijing Wangfujing','王府井天伦松鹤大饭店'],["Xi'an",'2 noites','9 e 10 abr',"Novotel Xi'an Bell Tower",'西安钟楼诺富特酒店'],['Xangai','3 noites','11 a 13 abr','Radisson Collection Hyland, Nanjing East Road',''],['Shenzhen','1 noite','14 abr','Wyndham Grand Shenzhen (Futian)','深圳温德姆至尊酒店'],['Hong Kong','2 noites','15 e 16 abr','The Royal Garden (Tsim Sha Tsui East)','帝苑酒店']];
+const FLY_B = [['EK262','São Paulo (GRU) → Dubai','Sáb 3 abr','01:35 → 23:00'],['EK306','Dubai → Pequim (PEK)','Dom 4 abr','03:50 → 15:25'],['EK381','Hong Kong → Dubai','Dom 18 abr','00:05 → 04:25'],['EK261','Dubai → São Paulo (GRU)','Dom 18 abr','09:05 → 17:40']];
+const FLY_P = [['EK248','Rio (GIG) → Dubai','Sáb 3 abr','03:30 → 00:30 (dom)'],['EK306','Dubai → Pequim (PEK)','Dom 4 abr','03:50 → 15:25'],['EK381','Hong Kong → Dubai','Dom 18 abr','00:05 → 04:25'],['EK247','Dubai → Rio (GIG)','Dom 18 abr','08:05 → 16:05']];
+const LEGS = [['Sex 9 abr',"Pequim → Xi'an",'Trem G365','09:55 → 14:05','Sair do hotel 08:15'],['Dom 11 abr',"Xi'an → Xangai",'Voo MU2155','11:00 → 13:10','Sair do hotel 08:15'],['Qua 14 abr','Xangai → Shenzhen','Voo MU5339','11:00 → 13:30','Sair do hotel 08:30'],['Qui 15 abr','Shenzhen → Hong Kong','Trem G5647','14:56 → 15:10','Sair do hotel 14:00'],['Sáb 17 abr','Para o aeroporto','Táxi','20:45','Voo às 00:05']];
+const FOOD = [
+ ['Pequim',[['Seg 5','Almoço','Macarrão puxado à mão, perto do hotel'],['Ter 6','Almoço','Yisonglou, ao pé da Muralha'],['Qua 7 · 12:00','Especial','Pato de Pequim no Dadong (mesa a reservar)'],['Qui 8','No barco','Lanche reforçado; almoço leve às 14:30; jantar de despedida 18:30']]],
+ ["Xi'an",[['Sex 9','Noite','Espetinhos (chuanr) no Bairro Muçulmano'],['Sáb 10','Almoço','Macarrão biangbiang, feito na hora'],['Sáb 10 · 18:00','Especial','Banquete de dumplings no De Fa Chang']]],
+ ['Xangai',[['Seg 12 · 19:15','Especial','Jantar com vista no Jin Xuan, 53º andar'],['Ter 13 · 11:00','Almoço','Xiaolongbao no Nanxiang, ao lado do Jardim Yu']]],
+ ['Shenzhen',[['Qua 14 · 18:15','Jantar','Cantonês tranquilo no Yuejing'],['Qui 15 · 12:30','Almoço','Dim sum no Phoenix House, ao lado do mercado']]],
+ ['Hong Kong',[['Qui 15 · 18:30','Jantar','Restaurante chinês do hotel'],['Sex 16 · 11:30','Almoço','Macarrão no Mak\'s Noodle, à beira do porto'],['Sex 16 · 19:00','Especial','Jantar de despedida no Above & Beyond, com vista (mesa a reservar)'],['Sáb 17 · 12:00','Especial','O dim sum da mamãe no Lai Ching Heen (mesa a reservar)']]]
+];
+const DISHES = [['北京烤鸭','Běijīng kǎoyā','Pato de Pequim'],['拉面','lāmiàn','Macarrão puxado à mão'],['羊肉串','yángròu chuàn','Espetinho de cordeiro (chuanr)'],['饺子','jiǎozi','Dumplings'],['小笼包','xiǎolóngbāo','Bolinhos no vapor com caldo'],['点心','diǎnxīn','Dim sum'],['米饭','mǐfàn','Arroz branco'],['茶','chá','Chá'],['矿泉水','kuàngquánshuǐ','Água mineral']];
+// l: zh-CN (mandarim) | zh-HK (cantonês)
+const PHRASES = [
+ ['O básico','zh-CN',[['你好','nǐ hǎo','Olá'],['谢谢','xièxie','Obrigado(a)'],['不好意思','bù hǎoyìsi','Com licença / desculpe'],['对','duì','Sim, isso'],['不要，谢谢','bú yào, xièxie','Não quero, obrigado(a)'],['我听不懂','wǒ tīng bu dǒng','Não entendo'],['请帮帮我','qǐng bāngbang wǒ','Por favor, me ajude']]],
+ ['No restaurante','zh-CN',[['我们三个人','wǒmen sān ge rén','Somos três pessoas'],['不要辣','bú yào là','Sem pimenta'],['少糖','shǎo táng','Pouco açúcar'],['有图片菜单吗？','yǒu túpiàn càidān ma?','Tem cardápio com fotos?'],['这个','zhège','Este aqui (apontando)'],['买单','mǎidān','A conta, por favor'],['可以刷卡吗？','kěyǐ shuākǎ ma?','Posso pagar com cartão?']]],
+ ['Na rua e no táxi','zh-CN',[['请带我去这个地址','qǐng dài wǒ qù zhège dìzhǐ','Por favor, leve-me a este endereço'],['洗手间在哪里？','xǐshǒujiān zài nǎlǐ?','Onde fica o banheiro?'],['有电梯吗？','yǒu diàntī ma?','Tem elevador?'],['请慢一点','qǐng màn yìdiǎn','Mais devagar, por favor'],['多少钱？','duōshao qián?','Quanto custa?'],['太贵了','tài guì le','Está caro demais'],['请开发票','qǐng kāi fāpiào','Um recibo, por favor']]],
+ ['Em Hong Kong (cantonês)','zh-HK',[['你好','néih hóu','Olá'],['唔該','m̀h-gōi','Obrigado(a) / por favor'],['幾多錢？','géi dō chín?','Quanto custa?'],['埋單','màaih dāan','A conta, por favor'],['洗手間喺邊度？','sái sáu gāan hái bīn douh?','Onde fica o banheiro?']]]
+];
+// Cards to show a taxi driver. zh from the hotels' own listings and the sights' Chinese names.
+const TAXI = [
+ ['Pequim',[['Hotel (Sunworld Wangfujing)','王府井天伦松鹤大饭店'],['Grande Muralha de Mutianyu','慕田峪长城'],['Cidade Proibida, portão leste','故宫 东华门'],['Zoológico de Pequim, portão sul','北京动物园 南门'],['Palácio de Verão, Portão do Palácio Novo','颐和园 新建宫门'],['Estação Pequim Oeste','北京西站']]],
+ ["Xi'an",[['Hotel (Novotel Torre do Sino)','西安钟楼诺富特酒店'],['Muralha da cidade, Portão Sul','西安城墙 永宁门'],['Exército de Terracota','秦始皇兵马俑博物馆'],['Aeroporto de Xi\'an','西安咸阳国际机场']]],
+ ['Xangai',[['Torre de Xangai','上海中心大厦'],['Jardim Yu','豫园'],['Circo de Xangai (show ERA)','上海马戏城'],['Aeroporto de Hongqiao','上海虹桥机场']]],
+ ['Shenzhen',[['Hotel (Wyndham Grand)','深圳温德姆至尊酒店'],['Mercado de eletrônicos Huaqiangbei','华强北'],['Estação Futian','福田站']]],
+ ['Hong Kong',[['Hotel (The Royal Garden)','帝苑酒店'],['O Pico','太平山頂'],['Museu do Palácio de Hong Kong','香港故宮文化博物館'],['Balsa Star Ferry, Tsim Sha Tsui','尖沙咀天星碼頭'],['Aeroporto de Hong Kong','香港國際機場']]]
+];
+const TODO = [
+ ['Agora',[['voos','Comprar as duas passagens da Emirates','Bárbara compra. Atenção: a busca é "várias cidades", ida em 3 abr e volta em 18 abr.'],['suzhou','Enviar a mensagem ao instituto de bordado de Suzhou','']]],
+ ['Janeiro',[['dimsum','1º jan: reservar o dim sum da mamãe (Lai Ching Heen, sáb 17 abr, 12:00)','Confirmar em dezembro se as reservas de abril abrem mesmo no dia 1º.'],['consulado','Início de jan: ligar para o consulado no Rio','Perguntar se precisa agendar e quantos dias entre entregar e buscar.'],['seguro','Escolher o seguro viagem',''],['visto','15 jan: decisão do visto','Hoje a China exige visto em abril de 2027. Se a isenção não for renovada: visto de turista, R$ 475 cada. Prazo seguro: até 22 fev.'],['voosint','Reler os preços dos dois voos dentro da China','']]],
+ ['Março',[['era','Ingressos do show de acrobatas ERA (ter 13 abr)',''],['cha','Cerimônia do chá (seg 12 abr), 2 a 3 semanas antes',''],['mesas','Mesas: Above & Beyond (sex 16) e pato no Dadong (qua 7)',''],['trem1','Por volta de 25 mar: trem G365 Pequim → Xi\'an, 1ª classe','Esgota rápido. Se não houver 1ª classe: classe executiva.'],['muralha','Muralha de Mutianyu: entrada, ônibus e teleférico','Entre 15 e 30 dias antes.'],['proibida','Qua 31 mar, 09:00 (horário de Brasília): Cidade Proibida','Com os três passaportes, horário da manhã. Esgota.'],['trem2','A partir de 31 mar: trem G5647 Shenzhen → Hong Kong',''],['terracota','Antes de viajar: pré-reserva do Exército de Terracota no Trip.com','']]]
+];
+const PACK = [['docs','Passaportes (os mesmos usados nas reservas)'],['febre','Certificado internacional de febre amarela'],['vistos','Vistos, se forem exigidos'],['esim','eSIM instalado nos três celulares (China + Hong Kong)'],['alipay','Alipay configurado com cartão, antes de sair'],['mapas','Mapas offline e este app salvos no celular'],['roupa','Roupa em camadas: Pequim tem manhã de 7 °C, Shenzhen chega a 29 °C'],['chuva','Capa de chuva leve (Xangai e Hong Kong)'],['sapato','Sapato confortável, já amaciado'],['lanche','Lanchinhos leves para os dias de viagem'],['remedios','Remédios de uso pessoal, na bagagem de mão'],['adaptador','Adaptador de tomada e carregador portátil']];
+const WX = [['Pequim','4 a 8 abr','21 / 7 °C','7%'],["Xi'an",'9 e 10 abr','26 / 13 °C','sem chuva'],['Xangai','11 a 13 abr','22 / 13 °C','50%'],['Shenzhen','14 abr','29 / 21 °C','25%'],['Hong Kong','15 a 17 abr','26 / 21 °C','58%']];
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const NOW_OFF = (() => { const q = new URLSearchParams(location.search).get('now'); const t = q ? Date.parse(q) : NaN; return isNaN(t) ? 0 : t - Date.now(); })();
+const nowD = () => new Date(Date.now() + NOW_OFF);
+function inTZ(d){ const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(d).map(x=>[x.type,x.value])); return {iso:`${p.year}-${p.month}-${p.day}`, hm:`${p.hour==='24'?'00':p.hour}:${p.minute}`}; }
+const store = { get(k,d){ try{ const v = localStorage.getItem('seda:'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem('seda:'+k, JSON.stringify(v)); }catch(e){} } };
+const LABEL = {easy:'dia leve', heavy:'dia mais puxado', move:'dia de viagem'};
+const fmtDate = iso => { const [y,m,d] = iso.split('-').map(Number); return `${d} de ${['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'][m-1]}`; };
+function dayCard(d, nowHm){
+  let cur = -1; if (nowHm) d.ev.forEach((e,i) => { if (/^\d\d:\d\d$/.test(e[0]) && e[0] <= nowHm) cur = i; });
+  return `<div class="card" id="day-${d.iso}"><div class="eyebrow">${d.wd} · ${fmtDate(d.iso)} · ${esc(CITY[d.c])}</div><div class="big">${esc(d.t)}</div>
+  <div class="tags">${d.k.map(k=>`<span class="tag ${k}">${LABEL[k]}</span>`).join('')}${d.km?`<span class="tag">a pé: ${esc(d.km)}</span>`:''}</div>
+  <ul class="tl">${d.ev.map((e,i)=>`<li class="${i===cur?'now':''}"><span class="t">${esc(e[0])}</span><span>${esc(e[1])}</span></li>`).join('')}</ul>${d.n?`<div class="note">${esc(d.n)}</div>`:''}</div>`;
+}
+function checklist(group, items){ const st = store.get('ck', {}); return items.map(([id,txt,sub]) => { const k = group+':'+id, on = !!st[k]; return `<label class="ck ${on?'done':''}"><input type="checkbox" data-k="${k}" ${on?'checked':''}><span>${esc(txt)}${sub?`<small>${esc(sub)}</small>`:''}</span></label>`; }).join(''); }
+function say(text, lang){ try{ if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .8; const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace('_','-').toLowerCase().startsWith(lang.toLowerCase())); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+function showCard(title, zh, pt){ $('#dlg-t').textContent = title; $('#dlg-zh').textContent = zh; $('#dlg-pt').textContent = pt; const d = $('#dlg'); if (d.showModal) d.showModal(); else d.setAttribute('open',''); }
+const tbl = (head, rows) => `<div class="x"><table><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+// ---------- views ----------
+function vHoje(){
+  const n = nowD(), here = inTZ(n), d = DAYS.find(x => x.iso === here.iso);
+  let h = '';
+  if (d) {
+    const i = DAYS.indexOf(d), next = DAYS[i+1];
+    h += `<div class="card hero"><div class="eyebrow">Agora na China · ${here.hm}</div>`;
+    const upcoming = d.ev.find(e => /^\d\d:\d\d$/.test(e[0]) && e[0] > here.hm);
+    h += upcoming ? `<div class="big">A seguir, às ${upcoming[0]}</div><p>${esc(upcoming[1])}</p>` : `<div class="big">O dia terminou</div><p>Descansem. ${next ? 'Amanhã: ' + esc(next.t) + '.' : ''}</p>`;
+    h += `</div>` + dayCard(d, here.hm);
+    if (next) h += `<h2>Amanhã</h2>` + dayCard(next);
+  } else if (here.iso < DAYS[0].iso) {
+    const days = Math.ceil((Date.parse(DAYS[0].iso+'T00:00:00+08:00') - n.getTime()) / 864e5);
+    h += `<div class="card hero"><div class="eyebrow">Contagem regressiva</div><div class="count">${days}</div><p>${days===1?'dia':'dias'} até a saída do Brasil, na noite de sexta, 2 de abril de 2027.</p></div>`;
+    h += `<div class="card"><div class="eyebrow">A viagem</div><div class="big">Pequim → Xi'an → Xangai → Shenzhen → Hong Kong</div><p class="mute">13 noites, 5 hotéis. Bárbara, papai e mamãe, os três juntos do começo ao fim.</p>${tbl(['Cidade','Noites','Datas'], NIGHTS.map(r=>[r[0],r[1],r[2]]))}</div>`;
+    const st = store.get('ck', {}), nextTodo = TODO.flatMap(g => g[1].map(i => ['todo:'+i[0], i[1], g[0]])).filter(x => !st[x[0]]).slice(0,3);
+    if (nextTodo.length) h += `<div class="card"><div class="eyebrow">Próximos passos</div><ul class="tl">${nextTodo.map(x=>`<li><span class="t">${esc(x[2])}</span><span>${esc(x[1])}</span></li>`).join('')}</ul><p class="note">A lista completa está em Prático.</p></div>`;
+    h += `<h2>Primeiro dia</h2>` + dayCard(DAYS[2]);
+  } else {
+    h += `<div class="card hero"><div class="eyebrow">Viagem concluída</div><div class="big">Bem-vindos de volta</div><p>Os dias continuam aqui, na aba Dias, para lembrar.</p></div>`;
+  }
+  $('#v-hoje').innerHTML = h;
+}
+function vDias(){
+  const cities = [['all','Todos'],['bj','Pequim'],['xa',"Xi'an"],['sh','Xangai'],['sz','Shenzhen'],['hk','Hong Kong']], sel = store.get('city','all');
+  const list = DAYS.filter(d => sel==='all' || d.c===sel);
+  $('#v-dias').innerHTML = `<div class="chips">${cities.map(c=>`<button class="chip ${c[0]===sel?'on':''}" data-city="${c[0]}">${c[1]}</button>`).join('')}</div><p class="mute">As distâncias a pé são estimativas. Horários no fuso da China.</p>` + list.map(d=>dayCard(d)).join('');
+}
+function vViagem(){
+  $('#v-viagem').innerHTML = `<h2>Voos internacionais</h2><p class="mute">Emirates, em duas reservas separadas. Ainda não comprados.</p>
+  <div class="card"><h3>Bárbara · de São Paulo</h3>${tbl(['Voo','Trecho','Data','Horário'], FLY_B)}</div>
+  <div class="card"><h3>Papai e mamãe · do Rio</h3>${tbl(['Voo','Trecho','Data','Horário'], FLY_P)}</div>
+  <div class="card"><div class="eyebrow">Atenção às datas</div><p>Os dois voos de ida saem na madrugada de sábado, 3 de abril: a ida ao aeroporto é na noite de sexta.</p><p>O voo de volta sai às 00:05 de domingo, 18 de abril: a ida ao aeroporto é na noite de sábado, 17.</p><p>Os três se encontram em Dubai e seguem juntos para Pequim. Na volta, voam juntos de Hong Kong a Dubai e se separam lá.</p></div>
+  <h2>Dentro da China</h2><div class="card">${tbl(['Dia','Trecho','Como','Horário','Obs.'], LEGS)}<p class="note">Estação de trem: chegar 45 a 60 min antes, com o passaporte na mão. Horários dos trens são os de hoje e precisam ser conferidos quando a venda abrir.</p></div>
+  <h2>Hotéis</h2><p class="mute">Dois quartos em cada cidade. Ainda não reservados.</p>` + NIGHTS.map(r=>`<div class="card"><div class="eyebrow">${esc(r[0])} · ${esc(r[1])} · ${esc(r[2])}</div><div class="big">${esc(r[3])}</div>${r[4]?`<button class="chip" data-show="${esc(r[4])}" data-pt="${esc(r[3])}" data-t="Mostrar ao motorista">Mostrar o nome em chinês</button>`:`<p class="note">Peça na recepção o cartão do hotel com o endereço em chinês.</p>`}</div>`).join('') + `<p class="note">No último dia em Hong Kong fica só o quarto do papai e da mamãe, até 20:45.</p>`;
+}
+function vComer(){
+  $('#v-comer').innerHTML = `<h2>Onde comer</h2><div class="card"><div class="eyebrow">Combinado</div><p>Refeições em horários regulares, sem longos intervalos. Sempre há uma opção leve, com pouca pimenta e pouco açúcar. Nada de carnes exóticas.</p><p class="note">Só três mesas serão reservadas: o pato em Pequim e as duas de Hong Kong. O resto é por ordem de chegada, com alternativa perto do hotel.</p></div>` +
+  FOOD.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><ul class="tl">${rows.map(r=>`<li><span class="t">${esc(r[0])}</span><span>${r[1]==='Especial'?'<b>':''}${esc(r[2])}${r[1]==='Especial'?'</b>':''}</span></li>`).join('')}</ul></div>`).join('') +
+  `<h2>Pratos para pedir</h2><div class="card">${DISHES.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="zh-CN" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`;
+}
+function vFrases(){
+  $('#v-frases').innerHTML = `<h2>Frases</h2><p class="mute">Toque no alto-falante para ouvir, ou mostre a tela para a pessoa.</p>` +
+  PHRASES.map(([t,lang,rows])=>`<div class="card"><div class="eyebrow">${esc(t)}</div>${rows.map(p=>`<div class="ph"><div><div class="zh">${p[0]}</div><div class="py">${p[1]}</div><div>${esc(p[2])}</div></div><button class="say" data-say="${p[0]}" data-lang="${lang}" aria-label="Ouvir">🔊</button></div>`).join('')}</div>`).join('') +
+  `<h2>Para mostrar ao motorista</h2><p class="mute">Toque em um lugar para abrir o nome bem grande.</p>` +
+  TAXI.map(([c,rows])=>`<div class="card"><div class="eyebrow">${esc(c)}</div><div class="tags">${rows.map(r=>`<button class="chip" data-show="${esc(r[1])}" data-pt="${esc(r[0])}" data-t="Mostrar ao motorista">${esc(r[0])}</button>`).join('')}</div></div>`).join('');
+}
+function vPratico(){
+  $('#v-pratico').innerHTML = `<h2>O que falta fazer</h2>` + TODO.map(([g,items])=>`<div class="card"><div class="eyebrow">${esc(g)}</div>${checklist('todo', items)}</div>`).join('') +
+  `<h2>Na mala</h2><div class="card">${checklist('pack', PACK.map(p=>[p[0],p[1],'']))}</div>
+  <h2>Entrada na China e em Hong Kong</h2><div class="card"><p><b>China continental:</b> a isenção de visto para brasileiros vale só até 31 de dezembro de 2026. Para abril de 2027, o plano é tirar o visto de turista, a não ser que a isenção seja renovada. Decisão em 15 de janeiro.</p><p><b>Hong Kong:</b> brasileiros entram sem visto por até 90 dias.</p><p class="note">Shenzhen vem antes de Hong Kong, então é uma entrada só na China continental.</p></div>
+  <h2>Dinheiro e internet</h2><div class="card"><p><b>Pagamentos:</b> na China quase tudo é pelo Alipay, com QR code. Dinheiro e cartão são pouco usados. Em Hong Kong: dólar de Hong Kong, cartão e o cartão Octopus.</p><p><b>Internet:</b> Google, WhatsApp e Instagram são bloqueados nas redes chinesas. O eSIM de viagem resolve isso. Cada um terá o seu.</p><p><b>Tomadas:</b> levar adaptador universal.</p></div>
+  <h2>Clima em abril</h2><div class="card">${tbl(['Cidade','Datas','Máx. / mín.','Chuva'], WX)}</div>
+  <h2>Se alguém se perder</h2><div class="card"><p>Ficar onde está e ligar ou mandar mensagem. Mostrar o cartão do hotel a um motorista de táxi: os nomes em chinês estão na aba Frases.</p><p class="note">Emergência na China: polícia 110, ambulância 120. Em Hong Kong: 999.</p></div>`;
+}
+// ---------- shell ----------
+const TABS = [['hoje','Hoje','☀️',vHoje],['dias','Dias','🗓️',vDias],['viagem','Viagem','✈️',vViagem],['comer','Comer','🥢',vComer],['frases','Frases','💬',vFrases],['pratico','Prático','🎒',vPratico]];
+function go(id){ const t = TABS.find(x => x[0]===id) || TABS[0]; t[3](); document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-'+t[0])); document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t[0])); if (location.hash !== '#'+t[0]) history.replaceState(null,'','#'+t[0]); window.scrollTo(0,0); }
+$('#tabs').innerHTML = TABS.map(t => `<button data-tab="${t[0]}"><i>${t[2]}</i>${t[1]}</button>`).join('');
+document.addEventListener('click', e => {
+  const tab = e.target.closest('#tabs button'); if (tab) return go(tab.dataset.tab);
+  const s = e.target.closest('[data-say]'); if (s) return say(s.dataset.say, s.dataset.lang);
+  const sh = e.target.closest('[data-show]'); if (sh) return showCard(sh.dataset.t, sh.dataset.show, sh.dataset.pt);
+  const c = e.target.closest('[data-city]'); if (c) { store.set('city', c.dataset.city); vDias(); }
+});
+document.addEventListener('change', e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; const st = store.get('ck', {}); st[k] = e.target.checked; store.set('ck', st); e.target.closest('label').classList.toggle('done', e.target.checked); });
+if ('speechSynthesis' in window) speechSynthesis.getVoices();
+go((location.hash || '#hoje').slice(1));
+setInterval(() => { if ($('#v-hoje').classList.contains('on')) vHoje(); }, 60000);
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
