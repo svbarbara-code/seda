@@ -169,7 +169,7 @@ ol.steps li>span:last-child{font-size:14.5px;color:var(--mute)}
 </main>
 <nav class="tabs" id="tabs"></nav>
 <dialog id="dlg"><div class="eyebrow" id="dlg-t"></div><div class="show" id="dlg-zh"></div><p class="mute" id="dlg-pt" style="text-align:center"></p><div class="show small" id="dlg-addr" hidden></div>
- <div class="dbtns"><button class="btn-line" id="dlg-c1" data-copy="">Copiar o nome</button><button class="btn-line" id="dlg-c2" data-copy="" hidden>Copiar o endereço</button><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></div></dialog>
+ <div class="dbtns"><button class="btn-line" id="dlg-say" data-say="">Ouvir a pronúncia</button><button class="btn-line" id="dlg-c1" data-copy="">Copiar o nome</button><button class="btn-line" id="dlg-c2" data-copy="" hidden>Copiar o endereço</button><button class="btn" onclick="document.getElementById('dlg').close()">Fechar</button></div></dialog>
 <dialog id="lock"><div class="eyebrow">Número da reserva</div><p>Digite a senha da família. Só é preciso uma vez neste celular.</p><input id="lock-pw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Senha"><p class="w" id="lock-msg" hidden>Senha incorreta.</p>
  <div class="dbtns"><button class="btn" id="lock-ok">Abrir</button><button class="btn-line" onclick="document.getElementById('lock').close()">Cancelar</button></div></dialog>
 <div id="toast" role="status" hidden></div>
@@ -296,7 +296,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'pN1OpFO31KeoTMURFXP9RUVGNyiejf/L6ipZtjUoa167uFcMvIYbOeigNXVTe//tZuY6Bw16oSRh9Gne+5TvCHCNKJ4=';
+const SEC = '89hGkhXlsHmOVhqGDIThaIXLCtq/7uci/EzrIcQE9iQYsClQOp4cRFX0Ed6jwUz7/m0dQuXOT13FnApx1d7UYYAqig8=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -357,9 +357,15 @@ function dayCard(d, nowHm){
   <ul class="tl">${d.ev.map((e,i)=>`<li class="${i===cur?'now':''}"><span class="t">${esc(e[0])}</span><span>${evText(e[1], e[0])}</span></li>`).join('')}</ul>${d.n?`<div class="note">${esc(d.n)}</div>`:''}</div>`;
 }
 function checklist(group, items){ const st = store.get('ck', {}); return items.map(([id,txt,sub]) => { const k = group+':'+id, on = !!st[k]; return `<label class="ck ${on?'done':''}"><input type="checkbox" data-k="${k}" ${on?'checked':''}><span>${esc(txt)}${sub?`<small>${esc(sub)}</small>`:''}</span></label>`; }).join(''); }
-function say(text, lang){ try{ if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .8; const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace('_','-').toLowerCase().startsWith(lang.toLowerCase())); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+// Recorded clips first (audio-map.json + say-*.m4a); the phone's own voice only as a fallback.
+const CLIPS = {}, CLIPKEYS = new Set(), PLAYER = new Audio();
+function loadClips(){ fetch('audio-map.json').then(r => r.json()).then(m => Object.entries(m).forEach(([k, f]) => { CLIPKEYS.add(k); fetch(f).then(r => r.ok ? r.arrayBuffer() : null).then(b => { if (b) CLIPS[k] = URL.createObjectURL(new Blob([b], {type: 'audio/mp4'})); }).catch(() => {}); })).catch(() => {}); }
+function speak(text, lang){ try{ if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = .8; const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.replace('_','-').toLowerCase().startsWith(lang.toLowerCase())); if (v) u.voice = v; speechSynthesis.speak(u); }catch(e){} }
+function say(text, lang){ if (!lang) lang = CLIPKEYS.has(text + '|zh-HK') ? 'zh-HK' : 'zh-CN'; const u = CLIPS[text + '|' + lang]; if (!u) return speak(text, lang);
+  try{ if ('speechSynthesis' in window) speechSynthesis.cancel(); PLAYER.pause(); PLAYER.src = u; const p = PLAYER.play(); if (p && p.catch) p.catch(() => speak(text, lang)); }catch(e){ speak(text, lang); } }
+loadClips();
 function openDlg(d){ if (d.showModal) d.showModal(); else d.setAttribute('open',''); }
-function showCard(title, zh, pt, addr){ $('#dlg-t').textContent = title; $('#dlg-zh').textContent = zh; $('#dlg-pt').textContent = pt; $('#dlg-c1').dataset.copy = zh;
+function showCard(title, zh, pt, addr){ $('#dlg-t').textContent = title; $('#dlg-zh').textContent = zh; $('#dlg-pt').textContent = pt; $('#dlg-c1').dataset.copy = zh; $('#dlg-say').dataset.say = zh;
   const a = $('#dlg-addr'), c2 = $('#dlg-c2'); a.hidden = c2.hidden = !addr; a.textContent = addr || ''; c2.dataset.copy = addr || ''; openDlg($('#dlg')); }
 function toast(msg){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 1800); }
 async function copyText(text){ let ok = false;
