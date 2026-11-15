@@ -188,17 +188,18 @@ const DAYS = [
   ['Antes de sair','Passaportes, certificado de febre amarela, vistos, Alipay funcionando nos três celulares, eSIM instalado.']]},
  {iso:'2027-04-03', wd:'Sáb', c:'air', t:'Voando para a China', k:['move'], ev:[
   ['Voos','Ainda não comprados. Bárbara vem do Brasil; Pai e Mãe, de Istambul. Os três se encontram em Pequim.'],
-  ['Chegada desejada','Pequim, domingo, 4 de abril, à tarde.']]},
+  ['Chegada desejada','Pequim, domingo, 4 de abril: Bárbara de manhã; Pai e Mãe à tarde.']]},
  {iso:'2027-04-04', wd:'Dom', c:'bj', t:'Chegada a Pequim', k:['easy'], km:'0,5 km', ev:[
-  ['Tarde','Chegada desejada a Pequim, em voos separados (ainda não comprados). Bárbara saca CNY 3.000 no caixa eletrônico do aeroporto.'],
-  ['Carros','Reservados com antecedência, com placa com o nome. Se a Bárbara chegar antes, ela vai na frente para o hotel e um segundo carro traz o Pai e a Mãe.'],
+  ['Manhã','Chegada desejada da Bárbara (voo ainda não comprado). Ela saca CNY 3.000 no caixa eletrônico do aeroporto e vai na frente para o hotel.'],
+  ['12:30','Bárbara almoça perto do hotel, na rua Huguosi.'],
+  ['Tarde','Chegada desejada do Pai e da Mãe (voo ainda não comprado). Um carro reservado com antecedência, com placa com o nome, traz os dois ao hotel.'],
   ['17:30','Hotel no hutong, em Shichahai.'],
-  ['18:30','Jantar ao lado do hotel. Dormir cedo. Hoje não tem passeio.']], n:'Feriado de Qingming (3 a 5 de abril): o trânsito do aeroporto pode demorar.'},
+  ['18:30','Jantar leve no Huguosi Snacks (táxi curto). Dormir cedo. Hoje não tem passeio.']], n:'Feriado de Qingming (3 a 5 de abril): o trânsito do aeroporto pode demorar.'},
  {iso:'2027-04-05', wd:'Seg', c:'bj', t:'Hutongs de riquixá (só de manhã)', k:['easy'], km:'cerca de 1 km', ev:[
   ['08:50','A pé até o ponto do riquixá: o hotel já fica em Shichahai.'],
   ['09:00','Passeio de riquixá pelos hutongs, sentados, dois por riquixá (50 min). Cedo, antes da multidão do feriado.'],
   ['10:00','Hotel: banheiro e um chá no pátio.'],
-  ['11:30','Almoço: macarrão puxado à mão, perto do hotel.'],
+  ['11:30','Almoço: bolinhos cozidos no Mr. Shi\'s Dumplings, perto da Torre do Tambor (táxi).'],
   ['13:00','Hotel. Tarde livre para descansar.']], n:'Opcional, a decidir na hora: em vez de voltar ao hotel às 10:00, táxi até o Templo do Céu (10:40 a 11:40). Depois, se a Mãe quiser, o mercado de pérolas Hongqiao, em frente (12:45 a 13:30); nesse caso a volta ao hotel é por volta das 14:15. Pérolas também podem ficar para Hong Kong.'},
  {iso:'2027-04-06', wd:'Ter', c:'bj', t:'Grande Muralha em Mutianyu', k:[], km:'cerca de 2,5 km', ev:[
   ['07:30','Carro com motorista, reservado com antecedência (1h30 a 2h de viagem). Sem guia.'],
@@ -299,7 +300,7 @@ const DAYS = [
   ['Noite','Ida para o aeroporto. Voos separados, ainda não comprados: Pai e Mãe voltam para o Brasil; Bárbara segue para a França.']]},
  {iso:'2027-04-18', wd:'Dom', c:'home', t:'Volta para casa', k:['move'], ev:[
   ['Voos','Ainda não comprados. Pai e Mãe voltam para o Brasil; Bárbara segue para a França, para visitar amigos, e volta ao Brasil no fim de abril.'],
-  ['Chegada desejada','Pai e Mãe no Brasil no domingo, 18 de abril, horário a definir.']]}
+  ['Chegada desejada','Pai e Mãe no Brasil no domingo, 18 de abril, à noite.']]}
 ];
 const NIGHTS = [
  ['Pequim','5 noites','4 a 8 abr','Shichahai Shadow Art Courtyard','什刹海皮影文化主题酒店','','ok','Entrada dom 4, 14:00 · Saída sex 9, 12:00'],
@@ -309,7 +310,7 @@ const NIGHTS = [
  ['Hong Kong','2 noites','15 e 16 abr','The Royal Garden','帝苑酒店','Em Tsim Sha Tsui East, à beira do porto, com calçadão plano ao lado. No sábado, 17, fica só o quarto do Pai e da Mãe, até a noite.','','Entrada qui 15 · Saída sáb 17']
 ];
 const ADDR_ZH = {'Pequim':'北京市西城区松树街24号'};
-const SEC = 'Ouz967QpYrmazCjQkhrQRD6s3e16SuMIgLjIGI9j/kGZWxF20rh4pWtvr4Ndrwxb7XevVOUJjEQV37kgx8/JfbQSANQ=';
+const SEC = '5S2TqogYrGonyMU3Xko/aYxoN5LHVeXenkLIyp/3h6PO7c4zXoHuj4mOzaAUvP6MrJJgTNVXo1X0HdPMZhiog9bwrlY=';
 const BOOKED = {'Pequim':{
   inn:['Dom, 4 abr','a partir das 14:00'], out:['Sex, 9 abr','até as 12:00'],
   rooms:'2 quartos Deluxe · 5 noites · sem refeições', total:'CNY 5.544', brl:'≈ R$ 4.700', brlNote:'Estimativa pelo câmbio de 14 nov 2026 (o Booking mostrou R$ 4.685). O valor em reais muda com o câmbio e pode ter IOF.', paid:'nada pago ainda',
@@ -317,11 +318,11 @@ const BOOKED = {'Pequim':{
   extras:[['Café da manhã','CNY 68'],['Jantar','CNY 48']], extrasNote:'por pessoa, por noite, opcionais',
   reqs:[['Quartos próximos','anotado'],['Tipo de cama','o hotel tenta na chegada']],
   addr:'No. 24 Songshu Street, Xicheng District, Pequim', tel:'+86 10 8328 7847'}};
-const ARRIVE = [['Brasil → Pequim','Bárbara','Dom 4 abr','à tarde'],['Istambul → Pequim','Pai e Mãe','Dom 4 abr','à tarde'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → França','Bárbara','Dom 18 abr','durante o dia'],['Hong Kong → Brasil','Pai e Mãe','Dom 18 abr','a definir']];
+const ARRIVE = [['Brasil → Pequim','Bárbara','Dom 4 abr','de manhã'],['Istambul → Pequim','Pai e Mãe','Dom 4 abr','à tarde'],["Xi'an → Xangai",'os três','Dom 11 abr','por volta das 13:10'],['Xangai → Shenzhen','os três','Qua 14 abr','por volta das 13:30'],['Hong Kong → França','Bárbara','Dom 18 abr','durante o dia'],['Hong Kong → Brasil','Pai e Mãe','Dom 18 abr','à noite']];
 const LEGS = [['Sex 9 abr',"Pequim → Xi'an",'Trem G365','09:55 → 14:05','Sair do hotel 08:15'],['Qui 15 abr','Shenzhen → Hong Kong','Trem G5647','14:56 → 15:10','Sair do hotel 13:55']];
 const FOOD = [
- ['Pequim',[['Seg 5','Almoço','Macarrão puxado à mão, perto do hotel'],['Ter 6','Almoço','Yisonglou, ao pé da Muralha'],['Qua 7 · 12:00','Especial','Pato de Pequim no Dadong (mesa a reservar)'],['Qui 8','No barco','Lanche reforçado; almoço leve às 14:30; jantar de despedida 18:30']]],
- ["Xi'an",[['Sex 9 · 17:30','Jantar','A escolher na hora: Tong Sheng Xiang, na praça (pão no caldo de cordeiro e sanduíche de carne), ou Lao Sun Jia. Depois, espetinhos (chuanr) no Bairro Muçulmano'],['Sáb 10','Almoço','Macarrão biangbiang, feito na hora'],['Sáb 10 · 17:00','Especial','Banquete de dumplings no De Fa Chang, antes do show']]],
+ ['Pequim',[['Todo dia','Café da manhã','No hotel, das 06:00 às 09:00 (a confirmar com o hotel)'],['Dom 4 · 18:30','Jantar','Uma tigela leve no Huguosi Snacks, casa de lanches tradicional; táxi curto'],['Seg 5 · 11:30','Almoço','Bolinhos cozidos (jiaozi) no Mr. Shi\'s Dumplings, perto da Torre do Tambor; táxi'],['Seg 5 e Ter 6 · 17:00','Jantar','Uma noite, comida caseira de Pequim no Juqi (shopping na Wangfujing, de táxi); na outra, uma tigela leve no Huguosi Snacks'],['Ter 6','Almoço','Yisonglou, ao pé da Muralha'],['Qua 7 · 12:00','Especial','Pato de Pequim no Dadong (mesa a reservar)'],['Qua 7 · 18:30','Jantar leve','Comida comprada no shopping da Wangfujing, no quarto; ou Huguosi Snacks'],['Qui 8 · 11:45','No barco','Almoço embalado, comprado na quarta'],['Qui 8 · 14:20','Lanche','Uma tigela pequena no Huguosi Snacks'],['Qui 8 · 18:30','Despedida','Cordeiro grelhado no Kao Rou Ji, à beira do lago, se o hotel confirmar; senão, Juqi de táxi']]],
+ ["Xi'an",[['Sex 9 · 17:30','Jantar','A escolher na hora: Tong Sheng Xiang, na praça (pão no caldo de cordeiro e sanduíche de carne), ou Lao Sun Jia. Depois, espetinhos (chuanr) no Bairro Muçulmano'],['Sáb 10 · 12:30','Almoço','Macarrão biangbiang, feito na hora, no Lao Li Jia; se houver fila, no hotel'],['Sáb 10 · 17:00','Especial','Banquete de dumplings no De Fa Chang, antes do show']]],
  ['Xangai',[['Dom 11 · 18:30','Jantar','A escolher na hora: restaurante do hotel, ou Lao Zheng Xing (cozinha de Xangai), se houver disposição'],['Seg 12 · 19:15','Especial','Jantar com vista no Jin Xuan, 53º andar'],['Ter 13 · 11:00','Almoço','Xiaolongbao no Nanxiang, ao lado do Jardim Yu']]],
  ['Shenzhen',[['Qua 14 · 18:15','Jantar','A escolher na hora: cantonês tranquilo no Yuejing, ou carne cozida à mesa em caldo leve, sem pimenta, no Baheli'],['Qui 15 · 12:30','Almoço','Dim sum no Phoenix House, ao lado do mercado']]],
  ['Hong Kong',[['Qui 15 · 18:30','Jantar','Restaurante chinês do hotel'],['Sex 16 · 11:30','Almoço','Macarrão no Mak\'s Noodle, à beira do porto'],['Sex 16 · 18:00','Especial','Jantar de despedida no Above & Beyond, com vista (mesa a reservar para as 18:00)'],['Sáb 17 · 12:00','Especial','O dim sum da Mãe no Lai Ching Heen (mesa a reservar)']]]
@@ -346,7 +347,7 @@ const TODO = [
  ['Agora',[['hotelbj_nome','Hotel de Pequim: pôr o nome de um hóspede no segundo quarto','No Booking, em "Editar dados dos hóspedes".'],['hotelbj_pedido','Hotel de Pequim: pedir camas separadas e quarto no térreo para Pai e Mãe','E perguntar se o táxi chega até a porta.'],['hotelbj_pagar','Hotel de Pequim: pagar antes da chegada, quando o hotel mandar as instruções','Por Alipay. Cancelamento grátis até 31 de março de 2027.'],['voos','Comprar as passagens internacionais','Bárbara compra. Depois, os voos aparecem na aba Transporte.'],['suzhou','Enviar a mensagem ao instituto de bordado de Suzhou','']]],
  ['Janeiro',[['dimsum','1º jan: reservar o dim sum da Mãe (Lai Ching Heen, sáb 17 abr, 12:00)','Confirmar em dezembro se as reservas de abril abrem mesmo no dia 1º.'],['consulado','Início de jan: ligar para o consulado no Rio','Perguntar se precisa agendar e quantos dias entre entregar e buscar.'],['seguro','Escolher o seguro viagem',''],['visto','15 jan: decisão do visto','Hoje a China exige visto em abril de 2027. Se a isenção não for renovada: visto de turista, R$ 475 cada. Prazo seguro: até 22 fev.'],['voosint','Reler os preços dos dois voos dentro da China','']]],
  ['Fevereiro',[['trem1','A partir de seg 8 fev: pré-reserva do trem G365 Pequim → Xi\'an no Trip.com, 1ª classe','A venda abre qui 25 mar, 21:00 (Brasília). Se não houver 1ª classe: classe executiva.']]],
- ['Março',[['era','Ingressos do show de acrobatas ERA (ter 13 abr)',''],['cha','Cerimônia do chá (seg 12 abr), 2 a 3 semanas antes',''],['mesas','Mesas: Above & Beyond (sex 16, às 18:00) e pato no Dadong (qua 7, às 12:00)',''],['jinxuan','Mesa no Jin Xuan, 53º andar (seg 12 abr, 19:15)','Reservar depois que o transporte e os hotéis estiverem fechados.'],['proibida','Qua 31 mar, 09:00 (horário de Brasília): Cidade Proibida','Com os três passaportes, horário da manhã, com a Galeria dos Tesouros. Esgota em minutos.'],['terracota','Até ter 30 mar: ingressos do Exército de Terracota no Trip.com','Sem guia: a Bárbara compra os três.'],['carros','Carros reservados: aeroporto de Pequim (dom 4; dois, se chegarmos em horários diferentes), Muralha (ter 6), Terracota (sáb 10), aeroporto de Shenzhen (qua 14)',''],['malas','Combinar com os hotéis de Pequim e de Xi\'an o envio das malas (qui 8 abr)','O hotel de Pequim chama a transportadora; o de Xi\'an guarda as malas até a chegada.'],]],
+ ['Março',[['era','Ingressos do show de acrobatas ERA (ter 13 abr)',''],['cha','Cerimônia do chá (seg 12 abr), 2 a 3 semanas antes',''],['mesas','Mesas: Above & Beyond (sex 16, às 18:00) e pato no Dadong (qua 7, às 12:00)',''],['jinxuan','Mesa no Jin Xuan, 53º andar (seg 12 abr, 19:15)','Reservar depois que o transporte e os hotéis estiverem fechados.'],['proibida','Qua 31 mar, 09:00 (horário de Brasília): Cidade Proibida','Com os três passaportes, horário da manhã, com a Galeria dos Tesouros. Esgota em minutos.'],['terracota','Até ter 30 mar: ingressos do Exército de Terracota no Trip.com','Sem guia: a Bárbara compra os três.'],['carros','Carros reservados: aeroporto de Pequim (dom 4: dois carros, um para a Bárbara de manhã e um para o Pai e a Mãe à tarde), Muralha (ter 6), Terracota (sáb 10), aeroporto de Shenzhen (qua 14)',''],['malas','Combinar com os hotéis de Pequim e de Xi\'an o envio das malas (qui 8 abr)','O hotel de Pequim chama a transportadora; o de Xi\'an guarda as malas até a chegada.'],]],
  ['Abril',[['trem2','Qui 1º abr: trem G5647 Shenzhen → Hong Kong',''],['muralha','Seg 5 abr, à noite: Muralha de Mutianyu, entrada, ônibus e teleférico','Depois de decidir o tempo. O carro com motorista é reservado antes.'],['tang','Sex 9 abr, na chegada a Xi\'an: banquete das 17:00 e show Tang de sábado','Pedir na recepção do hotel, até as 19:00.']]]
 ];
 const PACK = [['docs','Passaportes (os mesmos usados nas reservas)'],['febre','Certificado internacional de febre amarela'],['vistos','Vistos, se forem exigidos'],['esim','eSIM instalado nos três celulares (China + Hong Kong)'],['alipay','Alipay configurado com cartão nos três celulares, antes de sair'],['mapas','Mapas offline e este app salvos no celular'],['roupa','Roupa em camadas: Pequim tem manhã de 7 °C, Shenzhen chega a 29 °C'],['chuva','Capa de chuva leve (Xangai e Hong Kong)'],['sapato','Sapato confortável, já amaciado'],['lanche','Lanchinhos leves para os dias de viagem'],['remedios','Remédios de uso pessoal, na bagagem de mão'],['adaptador','Adaptador de tomada e carregador portátil (com o selo 3C)'],['vpn','VPN instalado no celular, como segunda reserva de internet']];
